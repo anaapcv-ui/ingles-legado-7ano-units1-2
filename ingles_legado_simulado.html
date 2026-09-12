@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado · Estação Espacial Get Well · Inglês 7º</title>
+<style>
+:root{--bg:#070b1e;--panel:#0f1a3f;--ink:#eaf2ff;--dim:#9fb2da;--cyan:#39e0ff;--cyan2:#0bbad6;
+ --green:#4ade80;--green2:#16a34a;--amber:#fbbf24;--red:#fb5a6a;--line:#26356b;--chip:#0c1a3c;--shadow:0 10px 30px rgba(0,0,0,.45);
+ --mc:#39e0ff;--fib:#fbbf24;--re:#a78bfa}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;
+ background:radial-gradient(1100px 600px at 15% -8%,#132a63 0,transparent 60%),radial-gradient(900px 500px at 108% 12%,#3a0a2a 0,transparent 55%),var(--bg)}
+.stars{position:fixed;inset:0;z-index:0;opacity:.5;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:16px 16px 96px}
+header.top{text-align:center;padding:22px 12px 4px;background:linear-gradient(180deg,rgba(10,20,55,.6),transparent);border-radius:16px}
+.badge{display:inline-block;background:linear-gradient(90deg,#b91c1c,#0bbad6);color:#fff;font-weight:800;padding:5px 14px;border-radius:999px;font-size:.8rem}
+h1{font-size:1.7rem;margin:.4rem 0 .2rem;text-shadow:0 0 18px rgba(57,224,255,.35)}
+.sub{color:var(--dim)}
+#relogioBar{position:sticky;top:0;z-index:30;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;
+ background:rgba(9,15,40,.92);border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin:12px 0;backdrop-filter:blur(6px);font-size:.9rem}
+#relogioBar b{color:var(--cyan)}
+.rlg-chip{background:var(--chip);border:1px solid var(--line);padding:4px 10px;border-radius:999px;color:var(--dim)}
+.rlg-chip.ativo{color:var(--green)}
+#gate{position:fixed;inset:0;z-index:60;background:rgba(4,7,20,.97);display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
+#gate .card{max-width:460px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px 26px;box-shadow:var(--shadow)}
+.bigbtn{cursor:pointer;border:none;border-radius:14px;padding:16px 26px;font-size:1.12rem;font-weight:800;background:linear-gradient(90deg,#b91c1c,var(--cyan));color:#fff;box-shadow:0 8px 22px rgba(185,28,28,.4)}
+#content.locked{filter:blur(7px);pointer-events:none}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.q .head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.q .num{color:var(--dim);font-weight:800;font-size:.82rem}
+.type{font-size:.68rem;font-weight:800;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px}
+.type.mc{background:rgba(57,224,255,.18);color:var(--mc);border:1px solid var(--mc)}
+.type.fib{background:rgba(251,191,36,.18);color:var(--fib);border:1px solid var(--fib)}
+.type.re{background:rgba(167,139,250,.18);color:var(--re);border:1px solid var(--re)}
+.q .txt{font-weight:600;margin:2px 0 10px}
+.opt{display:block;background:var(--chip);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:7px 0;cursor:pointer}
+.opt:hover{border-color:var(--cyan)}.opt.sel{border-color:var(--cyan);background:#122a55}
+.opt .l{color:var(--cyan);font-weight:800;margin-right:8px}
+.opt.correct{border-color:var(--green);background:rgba(74,222,128,.14)}
+.opt.wrong{border-color:var(--red);background:rgba(251,90,106,.14)}
+.fib input{width:100%;background:var(--chip);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:1rem}
+.fib input.correct{border-color:var(--green)}.fib input.wrong{border-color:var(--red)}
+.re .pool,.re .ans{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.re .ans{min-height:44px;background:var(--chip);border:1px dashed var(--line);border-radius:10px;padding:6px}
+.chipw{background:#153264;border:1px solid var(--line);border-radius:8px;padding:6px 11px;cursor:pointer;font-weight:600}
+.chipw:hover{border-color:var(--re)}
+.re .ans .chipw{background:#2a2258;border-color:var(--re)}
+.re .clr{cursor:pointer;background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:8px;padding:3px 10px;font-size:.8rem}
+.expl{display:none;margin-top:8px;font-size:.88rem;border-left:3px solid var(--green);padding:6px 10px;background:#0a1530;border-radius:8px}
+.expl.show{display:block}
+.btn{cursor:pointer;border:none;border-radius:12px;padding:13px 22px;font-weight:800;font-size:1rem;background:linear-gradient(90deg,#b91c1c,#e11d48);color:#fff}
+.btn.big{display:block;width:100%;margin:16px 0}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--dim);font-size:.9rem;font-weight:700}
+.codebox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;text-align:center}
+.codebox .code{font-size:1.5rem;font-weight:800;letter-spacing:2px;color:var(--green)}
+.gabtop{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;text-align:center}
+.gabtop input{background:var(--chip);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:9px 12px;font-size:1rem;text-transform:uppercase;letter-spacing:1px;width:170px;text-align:center}
+.result{font-size:1.2rem;font-weight:800;margin:8px 0}
+.nav{display:flex;justify-content:space-between;gap:10px;margin:22px 0}
+.nav a{flex:1;text-align:center;text-decoration:none;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px;font-weight:700}
+.savebar{position:fixed;bottom:0;left:0;right:0;z-index:40;background:rgba(9,15,40,.95);border-top:1px solid var(--line);padding:8px 10px;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:.82rem;backdrop-filter:blur(6px)}
+.savebar button{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer;font-size:.82rem}
+.savebar .st{color:var(--dim)}
+.modal{position:fixed;inset:0;z-index:70;background:rgba(4,7,20,.85);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal .box{max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center}
+.modal .row{display:flex;gap:10px;justify-content:center;margin-top:14px}
+@media(max-width:520px){h1{font-size:1.4rem}.wrap{padding:10px 10px 100px}}
+</style>
+</head>
+<body>
+<canvas class="stars" id="stars"></canvas>
+<div class="wrap">
+ <header class="top"><span class="badge">🚀 ESTAÇÃO GET WELL · SIMULADO FINAL</span>
+  <h1>📝 Simulado · Inglês 7º</h1>
+  <div class="sub">26 questões · 3 tipos: <span style="color:var(--mc)">Multiple Choice</span> · <span style="color:var(--fib)">Fill in the Blank</span> · <span style="color:var(--re)">Reorder</span></div>
+ </header>
+
+ <div id="relogioBar">
+  <span>⏱️ <b id="rlgTotal">00:00</b></span>
+  <span class="rlg-chip" id="rlgAtivoChip">ativo <b id="rlgAtivo">00:00</b></span>
+  <span class="rlg-chip">sessão 45 min</span>
+  <button class="btn ghost" style="padding:4px 10px;margin:0" onclick="RELOGIO.terminar()">⏹ Terminar</button>
+ </div>
+
+ <div id="content" class="locked">
+  <div id="questions"></div>
+  <button class="btn big" id="enviar" onclick="enviar()">✅ Enviar simulado</button>
+
+  <div class="codebox" id="codebox" style="display:none">
+   <div class="sub">Código de liberação (mostre para a mãe/pai):</div>
+   <div class="code" id="codeVal">SIM-00-XX</div>
+  </div>
+  <div class="gabtop" id="gabtop" style="display:none">
+   <div class="result" id="resultTxt"></div>
+   <div class="sub">Para abrir o gabarito comentado, digite o código acima:</div>
+   <div style="margin-top:8px"><input id="codeInput" placeholder="SIM-XX-YY" maxlength="9"> <button class="btn" onclick="abrirGabarito()">Abrir gabarito</button></div>
+   <div class="sub" id="gabMsg" style="margin-top:6px"></div>
+  </div>
+
+  <div class="nav">
+   <a href="ingles_legado_resumo.html">← Resumo</a>
+   <a href="index.html">🏠 Início</a>
+  </div>
+ </div>
+</div>
+
+<div id="gate"><div class="card">
+ <div style="font-size:2.4rem">⏱️📝</div>
+ <h2>Simulado final</h2>
+ <p class="sub">Ao tocar em <b>Começar</b>, ligo o relógio de estudo. Faça como uma prova de verdade: responda todas antes de enviar.</p>
+ <button class="bigbtn" onclick="RELOGIO.iniciar()">🚀 Começar</button>
+</div></div>
+
+<div class="modal" id="breakModal"><div class="box"><div style="font-size:2.2rem">🛰️☕</div><h3>Pausa obrigatória</h3><p class="sub">45 minutos! Levante e beba água.<br>Libera em <b id="breakLeft">05:00</b>.</p></div></div>
+<div class="modal" id="endModal"><div class="box"><h3>Terminar agora?</h3><p class="sub">Encerra o simulado com o que você já respondeu (o resto conta em branco) e gera o código.</p><div class="row"><button class="btn ghost" onclick="RELOGIO._closeEnd()">Continuar</button><button class="btn" onclick="RELOGIO._doEnd()">Encerrar</button></div></div></div>
+
+<div class="savebar">
+ <span class="st" id="saveSt">💾 salvo automaticamente</span>
+ <button onclick="SAVE.exportar()">📥 Exportar</button>
+ <button onclick="document.getElementById('impFile').click()">📤 Importar</button>
+ <input type="file" id="impFile" accept=".json" style="display:none" onchange="SAVE.importar(this)">
+ <button onclick="SAVE.zerar()">🗑️ Zerar tudo</button>
+</div>
+
+<script>
+var MEM={};var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return MEM[k]||null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){MEM[k]=v}},del:function(k){try{localStorage.removeItem(k)}catch(e){delete MEM[k]}}};
+var KEY='ing_legado_simulado';
+function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
+
+var QUESTOES=[
+ {tp:'mc',t:'"Look! Your brother ___ you."',opts:[{t:'is calling',c:true},{t:'calls'},{t:'call'},{t:'is call'}],e:'Ação agora + "Look!" → is + verbo-ing = is calling.'},
+ {tp:'fib',t:'Complete com o verbo "to be": "She ___ reading now." (uma palavra)',aceita:['is'],e:'Present Continuous com "she" usa "is": she is reading.'},
+ {tp:'mc',t:'Qual mostra uma situação TEMPORÁRIA?',opts:[{t:'I am having French classes instead of Spanish this semester.',c:true},{t:'I have breakfast every day.'},{t:'The Earth is round.'},{t:'Cats have four legs.'}],e:'"this semester" + Present Continuous = temporário. As outras são rotina/fatos.'},
+ {tp:'re',t:'Ordene para formar a frase:',palavras:['You','have','to','study','tonight'],correta:'you have to study tonight',e:'Obrigação: You have to study tonight. (have + to + verbo)'},
+ {tp:'fib',t:'Complete: "With he/she/it, we use ___ to (não have to)." (uma palavra)',aceita:['has'],e:'Com he/she/it: "has to". Ex.: He has to study.'},
+ {tp:'mc',t:'"You ___ use your cell phone in class." (é PROIBIDO)',opts:[{t:'must not',c:true},{t:'don\'t have to'},{t:'have to'},{t:'must'}],e:'Proibição = must not.'},
+ {tp:'mc',t:'"You don\'t have to wear a uniform on Sunday" significa:',opts:[{t:'Não é obrigatório, mas você pode.',c:true},{t:'É proibido usar uniforme.'},{t:'Você é obrigado a usar.'},{t:'Você nunca usa uniforme.'}],e:'"don\'t have to" = falta de necessidade, não proibição.'},
+ {tp:'fib',t:'Complete a expressão "depois de amanhã": "the day after ___". (uma palavra)',aceita:['tomorrow'],e:'the day after tomorrow = depois de amanhã (momento exato).'},
+ {tp:'mc',t:'Qual é uma expressão de MOMENTO EXATO no tempo?',opts:[{t:'the day after tomorrow',c:true},{t:'from time to time'},{t:'every other day'},{t:'school night'}],e:'the day after tomorrow aponta um dia definido.'},
+ {tp:'re',t:'Ordene (plano futuro):',palavras:['I','am','visiting','my','cousins','tomorrow'],correta:'i am visiting my cousins tomorrow',e:'Future arrangement: I am visiting my cousins tomorrow.'},
+ {tp:'fib',t:'"A pain in your head is a ___." (uma palavra em inglês)',aceita:['headache'],e:'head + ache = headache.'},
+ {tp:'fib',t:'"A pain in a tooth is a ___." (uma palavra em inglês)',aceita:['toothache'],e:'tooth + ache = toothache.'},
+ {tp:'mc',t:'"A photograph of the inside of your body" is a:',opts:[{t:'X-ray',c:true},{t:'sunburn'},{t:'curfew'},{t:'sore throat'}],e:'X-ray = raio-X.'},
+ {tp:'mc',t:'Qual é uma frase de SOLIDARIEDADE (sympathy)?',opts:[{t:'I\'m sorry to hear that.',c:true},{t:'You should drink water.'},{t:'Why don\'t you rest?'},{t:'Maybe you should sleep.'}],e:'As outras três são conselhos (advice).'},
+ {tp:'fib',t:'Complete o conselho: "You ___ rest and drink water." (deveria — uma palavra)',aceita:['should'],e:'should = deveria (conselho).'},
+ {tp:'re',t:'Ordene (conselho negativo):',palavras:['You','should','not','eat','too','much'],correta:'you should not eat too much',e:'You should not eat too much. (shouldn\'t = conselho do que não fazer)'},
+ {tp:'mc',t:'"Touch this blanket. It ___ soft." (sentido do TATO)',opts:[{t:'feels',c:true},{t:'tastes'},{t:'sounds'},{t:'looks'}],e:'Tato = feel → feels soft.'},
+ {tp:'mc',t:'"This cake ___ sweet." (SABOR)',opts:[{t:'tastes',c:true},{t:'sounds'},{t:'looks'},{t:'feels'}],e:'Sabor = taste → tastes sweet.'},
+ {tp:'fib',t:'"That music ___ loud." (sentido do OUVIDO — uma palavra)',aceita:['sounds'],e:'Ouvido = sound → sounds loud.'},
+ {tp:'mc',t:'"He was tired, ___ he went to bed early."',opts:[{t:'so',c:true},{t:'because'},{t:'but'},{t:'or'}],e:'"so" liga causa → resultado.'},
+ {tp:'fib',t:'Expressão com o mesmo sentido de "so": "as a ___". (uma palavra)',aceita:['result','consequence'],e:'as a result / as a consequence = como resultado / consequência.'},
+ {tp:'re',t:'Ordene (causa e resultado):',palavras:['It','was','raining','so','I','stayed','home'],correta:'it was raining so i stayed home',e:'It was raining so I stayed home. (so mostra o resultado)'},
+ {tp:'mc',t:'É proibido correr no corredor. Qual frase expressa isso?',opts:[{t:'You must not run in the hallway.',c:true},{t:'You don\'t have to run in the hallway.'},{t:'You should run in the hallway.'},{t:'You have to run in the hallway.'}],e:'Proibição = must not.'},
+ {tp:'fib',t:'Complete a frase de esperança: "I hope you ___ better soon." (uma palavra)',aceita:['feel','get'],e:'I hope you feel better soon (ou get better soon).'},
+ {tp:'mc',t:'Qual frase está CORRETA no Present Continuous?',opts:[{t:'They are playing.',c:true},{t:'They is playing.'},{t:'They playing.'},{t:'They are play.'}],e:'Plural "they" → are + verbo-ing = are playing.'},
+ {tp:'fib',t:'Como se diz "catapora" em inglês? (duas palavras)',aceita:['chicken pox','chickenpox'],e:'chicken pox = catapora.'}
+];
+
+function seeded(n){var s=n*9301+49297;return function(){s=(s*9301+49297)%233280;return s/233280;};}
+QUESTOES.forEach(function(q,i){if(q.tp==='mc'){var r=seeded(i+13);var arr=q.opts.map(function(o){return {o:o,k:r()};});arr.sort(function(a,b){return a.k-b.k;});q.order=arr.map(function(x){return x.o;});}
+ if(q.tp==='re'){var r=seeded(i+21);var arr=q.palavras.map(function(w,wi){return {w:w,wi:wi,k:r()};});arr.sort(function(a,b){return a.k-b.k;});q.pool=arr;}});
+
+var STATE={ans:{},re:{},enviado:false,code:null};
+function loadState(){try{var s=LS.get(KEY);if(s)STATE=JSON.parse(s);}catch(e){}STATE.ans=STATE.ans||{};STATE.re=STATE.re||{};}
+function saveState(){LS.set(KEY,JSON.stringify(STATE));flash();}
+var svt;function flash(){var el=document.getElementById('saveSt');el.textContent='💾 salvo '+new Date().toLocaleTimeString('pt-BR').slice(0,5);clearTimeout(svt);svt=setTimeout(function(){el.textContent='💾 salvo automaticamente'},2500);}
+var L=['A','B','C','D'];
+
+function render(){
+ var host=document.getElementById('questions');host.innerHTML='';
+ QUESTOES.forEach(function(q,i){
+   var div=document.createElement('div');div.className='q';div.id='q'+i;
+   var tlabel=q.tp==='mc'?'Multiple Choice':(q.tp==='fib'?'Fill in the Blank':'Reorder');
+   var h='<div class="head"><span class="num">Questão '+(i+1)+' de 26</span><span class="type '+q.tp+'">'+tlabel+'</span></div><div class="txt">'+q.t+'</div>';
+   if(q.tp==='mc'){
+     q.order.forEach(function(o,oi){var sel=STATE.ans[i]===oi?' sel':'';h+='<div class="opt'+sel+'" id="o'+i+'_'+oi+'" onclick="pick('+i+','+oi+')"><span class="l">'+L[oi]+'</span>'+o.t+'</div>';});
+   }else if(q.tp==='fib'){
+     h+='<div class="fib"><input id="f'+i+'" value="'+(STATE.ans[i]?escapeAttr(STATE.ans[i]):'')+'" oninput="typeFib('+i+')" placeholder="Digite sua resposta em inglês..."></div>';
+   }else{
+     h+='<div class="re"><div class="ans" id="ans'+i+'"></div><div class="pool" id="pool'+i+'"></div><button class="clr" onclick="clearRe('+i+')">↺ limpar</button></div>';
+   }
+   h+='<div class="expl" id="e'+i+'"></div>';
+   div.innerHTML=h;host.appendChild(div);
+   if(q.tp==='re')renderRe(i);
+ });
+ if(STATE.enviado)aplicarGabarito(false);
+}
+function escapeAttr(s){return (''+s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+function pick(i,oi){if(STATE.enviado)return;RELOGIO.marcaAtividade();STATE.ans[i]=oi;var q=document.getElementById('q'+i);q.querySelectorAll('.opt').forEach(function(el){el.classList.remove('sel')});document.getElementById('o'+i+'_'+oi).classList.add('sel');saveState();}
+function typeFib(i){if(STATE.enviado)return;RELOGIO.marcaAtividade();STATE.ans[i]=document.getElementById('f'+i).value;saveState();}
+function renderRe(i){
+ var q=QUESTOES[i];var ansHost=document.getElementById('ans'+i);var poolHost=document.getElementById('pool'+i);
+ var chosen=STATE.re[i]||[];
+ ansHost.innerHTML=chosen.map(function(wi){var w=q.palavras[wi];return '<span class="chipw" onclick="reRemove('+i+','+wi+')">'+w+'</span>';}).join('');
+ poolHost.innerHTML=q.pool.filter(function(p){return chosen.indexOf(p.wi)<0;}).map(function(p){return '<span class="chipw" onclick="reAdd('+i+','+p.wi+')">'+p.w+'</span>';}).join('');
+}
+function reAdd(i,wi){if(STATE.enviado)return;RELOGIO.marcaAtividade();STATE.re[i]=STATE.re[i]||[];STATE.re[i].push(wi);saveState();renderRe(i);}
+function reRemove(i,wi){if(STATE.enviado)return;RELOGIO.marcaAtividade();STATE.re[i]=(STATE.re[i]||[]).filter(function(x){return x!==wi;});saveState();renderRe(i);}
+function clearRe(i){if(STATE.enviado)return;STATE.re[i]=[];saveState();renderRe(i);}
+
+function corretaIndexMC(i){var ord=QUESTOES[i].order;for(var k=0;k<ord.length;k++){if(ord[k].c)return k;}return -1;}
+function acertou(i){
+ var q=QUESTOES[i];
+ if(q.tp==='mc')return STATE.ans[i]!=null&&STATE.ans[i]===corretaIndexMC(i);
+ if(q.tp==='fib')return STATE.ans[i]!=null&&q.aceita.indexOf(norm(STATE.ans[i]))>=0;
+ if(q.tp==='re'){var chosen=STATE.re[i]||[];var frase=chosen.map(function(wi){return q.palavras[wi];}).join(' ');return norm(frase)===q.correta;}
+ return false;
+}
+function contar(){var ac=0;QUESTOES.forEach(function(q,i){if(acertou(i))ac++;});return ac;}
+function gerarCodigo(ac){var letras='ABCDEFGHJKLMNPQRSTUVWXYZ';var y1=letras[Math.floor(Math.random()*letras.length)],y2=letras[Math.floor(Math.random()*letras.length)];var xx=(ac<10?'0':'')+ac;return 'SIM-'+xx+'-'+y1+y2;}
+
+function respondida(i){var q=QUESTOES[i];if(q.tp==='mc')return STATE.ans[i]!=null;if(q.tp==='fib')return STATE.ans[i]&&STATE.ans[i].trim().length>0;if(q.tp==='re')return (STATE.re[i]||[]).length>0;}
+function enviar(){
+ var faltam=[];QUESTOES.forEach(function(q,i){if(!respondida(i))faltam.push(i+1);});
+ if(faltam.length&&!STATE.forcado){msg('Faltam responder: '+faltam.join(', ')+'. Responda todas antes de enviar. 😊');return;}
+ STATE.enviado=true;var ac=contar();if(!STATE.code)STATE.code=gerarCodigo(ac);STATE.acertos=ac;saveState();
+ document.getElementById('codebox').style.display='block';document.getElementById('codeVal').textContent=STATE.code;
+ document.getElementById('gabtop').style.display='block';document.getElementById('resultTxt').textContent='Você acertou '+ac+' de 26.';
+ document.getElementById('enviar').style.display='none';aplicarGabarito(false);
+ document.getElementById('codebox').scrollIntoView({behavior:'smooth'});
+}
+function aplicarGabarito(revelar){
+ QUESTOES.forEach(function(q,i){
+   if(q.tp==='mc'){var ci=corretaIndexMC(i);var sel=STATE.ans[i];q.order.forEach(function(o,oi){var el=document.getElementById('o'+i+'_'+oi);if(el)el.classList.remove('correct','wrong');});
+     if(revelar){for(var oi=0;oi<q.order.length;oi++){var el=document.getElementById('o'+i+'_'+oi);if(oi===ci)el.classList.add('correct');else if(oi===sel&&sel!==ci)el.classList.add('wrong');}}}
+   if(q.tp==='fib'&&revelar){var inp=document.getElementById('f'+i);if(inp)inp.classList.add(acertou(i)?'correct':'wrong');}
+   if(revelar){var e=document.getElementById('e'+i);e.classList.add('show');var extra='';
+     if(q.tp==='fib')extra='<b>Resposta certa: '+q.aceita[0]+'</b><br>';
+     if(q.tp==='re'){extra='<b>Frase certa: '+reCorretaTexto(i)+'</b><br>';}
+     if(q.tp==='mc'){var ci2=corretaIndexMC(i);extra='<b>Resposta certa: '+L[ci2]+') '+q.order[ci2].t+'</b><br>';}
+     var marca=acertou(i)?'✅ ':'❌ ';
+     e.innerHTML=marca+extra+q.e;}
+ });
+}
+function reCorretaTexto(i){var q=QUESTOES[i];var w=q.correta.split(' ');w[0]=w[0].charAt(0).toUpperCase()+w[0].slice(1);return w.join(' ')+'.';}
+function abrirGabarito(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v===STATE.code){document.getElementById('gabMsg').textContent='Código correto! Gabarito liberado. ✅';aplicarGabarito(true);document.getElementById('q0').scrollIntoView({behavior:'smooth'});}else{document.getElementById('gabMsg').textContent='Código não confere. Digite exatamente o código mostrado acima.';}}
+function msg(t){var m=document.getElementById('endModal');m.querySelector('.box').innerHTML='<p>'+t+'</p><div class="row"><button class="btn" onclick="document.getElementById(\'endModal\').classList.remove(\'show\')">Ok</button></div>';m.classList.add('show');}
+
+var RELOGIO=(function(){
+ var TKEY=KEY+'_tempo',SESSAO=45*60,PAUSA=5*60,INAT=3*60;
+ var total=0,ativo=0,running=false,lastAct=Date.now(),tickH=null,sessAcc=0,sessoes=[];
+ function load(){try{var d=JSON.parse(LS.get(TKEY)||'{}');total=d.total||0;ativo=d.ativo||0;sessoes=d.sessoes||[];}catch(e){}}
+ function persist(){LS.set(TKEY,JSON.stringify({total:total,ativo:ativo,sessoes:sessoes}));}
+ function fmt(s){s=Math.max(0,Math.floor(s));var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+ function paint(){document.getElementById('rlgTotal').textContent=fmt(total);document.getElementById('rlgAtivo').textContent=fmt(ativo);document.getElementById('rlgAtivoChip').classList.toggle('ativo',running&&(Date.now()-lastAct)<INAT*1000);}
+ function tick(){if(!running)return;total++;var idle=(Date.now()-lastAct)/1000;if(idle<INAT){ativo++;sessAcc++;}if(sessAcc>=SESSAO)startBreak();persist();paint();}
+ function startBreak(){running=false;sessAcc=0;var m=document.getElementById('breakModal');m.classList.add('show');var bl=PAUSA;document.getElementById('breakLeft').textContent=fmt(bl);var h=setInterval(function(){bl--;document.getElementById('breakLeft').textContent=fmt(bl);if(bl<=0){clearInterval(h);m.classList.remove('show');running=true;lastAct=Date.now();}},1000);}
+ return{iniciar:function(){load();document.getElementById('gate').style.display='none';document.getElementById('content').classList.remove('locked');running=true;lastAct=Date.now();sessAcc=0;sessoes.push({ini:new Date().toISOString()});if(!tickH)tickH=setInterval(tick,1000);paint();},
+  marcaAtividade:function(){lastAct=Date.now();if(!running)running=true;},
+  terminar:function(){document.getElementById('endModal').classList.add('show');},
+  _closeEnd:function(){document.getElementById('endModal').classList.remove('show');},
+  _doEnd:function(){document.getElementById('endModal').classList.remove('show');STATE.forcado=true;if(sessoes.length)sessoes[sessoes.length-1].fim=new Date().toISOString();persist();enviar();},
+  dados:function(){return{total:total,ativo:ativo,sessoes:sessoes};},
+  _debug:function(o){if(o&&o.restante!=null)sessAcc=SESSAO-o.restante;return{total:total,ativo:ativo,sessAcc:sessAcc};}};
+})();
+['click','keydown','scroll','input'].forEach(function(ev){document.addEventListener(ev,function(){RELOGIO.marcaAtividade();},{passive:true});});
+
+var SAVE={
+ exportar:function(){var data={material:'simulado',key:KEY,quando:new Date().toISOString(),respostas:STATE,tempo:RELOGIO.dados()};var b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='simulado_ingles_7ano.json';a.click();},
+ importar:function(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);if(d.respostas){STATE=d.respostas;saveState();}if(d.tempo)LS.set(KEY+'_tempo',JSON.stringify(d.tempo));location.reload();}catch(e){msg('Arquivo inválido.');}};r.readAsText(f);},
+ zerar:function(){var m=document.getElementById('endModal');m.querySelector('.box').innerHTML='<h3>Apagar tudo?</h3><p class="sub">Zera respostas, código e tempo.</p><div class="row"><button class="btn ghost" onclick="document.getElementById(\'endModal\').classList.remove(\'show\')">Cancelar</button><button class="btn" id="zok">Sim</button></div>';m.classList.add('show');document.getElementById('zok').onclick=function(){LS.del(KEY);LS.del(KEY+'_tempo');location.reload();};}
+};
+
+(function(){var c=document.getElementById('stars');var x=c.getContext('2d');function rs(){c.width=innerWidth;c.height=innerHeight;}rs();addEventListener('resize',rs);var st=[];for(var i=0;i<80;i++)st.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.4,a:Math.random()});(function d(){x.clearRect(0,0,c.width,c.height);st.forEach(function(s){s.a+=(Math.random()-.5)*.05;if(s.a<0)s.a=0;if(s.a>1)s.a=1;x.fillStyle='rgba(180,220,255,'+s.a+')';x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fill();});requestAnimationFrame(d);})();})();
+
+loadState();render();
+if(STATE.enviado){document.getElementById('codebox').style.display='block';document.getElementById('codeVal').textContent=STATE.code;document.getElementById('gabtop').style.display='block';document.getElementById('resultTxt').textContent='Você acertou '+(STATE.acertos!=null?STATE.acertos:contar())+' de 26.';document.getElementById('enviar').style.display='none';}
+</script>
+</body>
+</html>
