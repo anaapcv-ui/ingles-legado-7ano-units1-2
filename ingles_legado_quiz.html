@@ -54,6 +54,8 @@ h1{font-size:1.7rem;margin:.4rem 0 .2rem;text-shadow:0 0 18px rgba(57,224,255,.3
 .modal.show{display:flex}
 .modal .box{max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center}
 .modal .row{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.spk{cursor:pointer;background:rgba(57,224,255,.15);color:var(--cyan);border:1px solid var(--line);border-radius:8px;padding:1px 8px;font-size:.82rem;margin-left:6px;vertical-align:middle}
+.spk:hover{background:rgba(57,224,255,.28)}
 @media(max-width:520px){h1{font-size:1.4rem}.wrap{padding:10px 10px 96px}}
 </style>
 </head>
@@ -125,6 +127,11 @@ var MEM={};var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){r
  set:function(k,v){try{localStorage.setItem(k,v)}catch(e){MEM[k]=v}},del:function(k){try{localStorage.removeItem(k)}catch(e){delete MEM[k]}}};
 var KEY='ing_legado_quiz';
 
+/* AUDIO en-US (mesmo mecanismo do Resumo) */
+function say(t){try{if(!("speechSynthesis" in window))return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.82;speechSynthesis.speak(u);}catch(e){}}
+var SAY="She is reading a book right now.|||Look! The kids are swimming in the pool.|||I'm sleeping in my sister's room these days.|||Adam is having his wisdom teeth removed tomorrow morning.|||You must not use your cell phone in class.|||With he, she or it, we use has to.|||You don't have to wear a uniform on Sunday.|||the day after tomorrow|||X-ray|||toothache|||I'm sorry to hear that.|||You shouldn't go to bed with wet hair.|||Touch this blanket. It feels soft.|||I prefer white chocolate because it tastes sweeter.|||He failed the exam, so he didn't get the certificate.".split("|||");
+function sayQ(i){say(SAY[i]);}
+
 var QUESTOES=[
  {t:'Complete no Present Continuous: "She ___ a book right now."',
   opts:[{t:'is reading',c:true},{t:'reads'},{t:'read'},{t:'reading'}],
@@ -191,7 +198,7 @@ function render(){
  var host=document.getElementById('questions');host.innerHTML='';
  QUESTOES.forEach(function(q,i){
    var div=document.createElement('div');div.className='q';div.id='q'+i;
-   var h='<div class="num">Pergunta '+(i+1)+' de 15</div><div class="txt">'+q.txt+'</div>';
+   var h='<div class="num">Pergunta '+(i+1)+' de 15</div><div class="txt">'+q.t+'</div>';
    q.order.forEach(function(o,oi){
      var sel=STATE.ans[i]===oi?' sel':'';
      h+='<div class="opt'+sel+'" id="o'+i+'_'+oi+'" onclick="pick('+i+','+oi+')"><span class="l">'+L[oi]+'</span>'+o.t+'</div>';
@@ -238,7 +245,7 @@ function aplicarGabaritoVisual(revelar){
      for(var oi=0;oi<q.order.length;oi++){var el=document.getElementById('o'+i+'_'+oi);
        if(oi===ci)el.classList.add('correct');else if(oi===sel&&sel!==ci)el.classList.add('wrong');}
      var e=document.getElementById('e'+i);e.classList.add('show');
-     e.innerHTML='<b>Resposta certa: '+L[ci]+') '+q.order[ci].t+'</b><br>'+q.e;
+     e.innerHTML='<b>Resposta certa: '+L[ci]+') '+q.order[ci].t+'</b> <button class="spk" onclick="sayQ('+i+')">🔊 ouvir</button><br>'+q.e;
    }
  });
 }
