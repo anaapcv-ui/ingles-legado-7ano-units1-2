@@ -66,6 +66,8 @@ h1{font-size:1.7rem;margin:.4rem 0 .2rem;text-shadow:0 0 18px rgba(57,224,255,.3
 .modal.show{display:flex}
 .modal .box{max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center}
 .modal .row{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.spk{cursor:pointer;background:rgba(57,224,255,.15);color:var(--cyan);border:1px solid var(--line);border-radius:8px;padding:1px 8px;font-size:.82rem;margin-left:6px;vertical-align:middle}
+.spk:hover{background:rgba(57,224,255,.28)}
 @media(max-width:520px){h1{font-size:1.4rem}.wrap{padding:10px 10px 100px}}
 </style>
 </head>
@@ -127,6 +129,11 @@ h1{font-size:1.7rem;margin:.4rem 0 .2rem;text-shadow:0 0 18px rgba(57,224,255,.3
 <script>
 var MEM={};var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return MEM[k]||null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){MEM[k]=v}},del:function(k){try{localStorage.removeItem(k)}catch(e){delete MEM[k]}}};
 var KEY='ing_legado_simulado';
+
+/* AUDIO en-US (mesmo mecanismo do Resumo) */
+function say(t){try{if(!("speechSynthesis" in window))return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.82;speechSynthesis.speak(u);}catch(e){}}
+var SAY="Look! Your brother is calling you.|||She is reading now.|||I am having French classes instead of Spanish this semester.|||You have to study tonight.|||He has to study.|||You must not use your cell phone in class.|||You don't have to wear a uniform on Sunday.|||the day after tomorrow|||the day after tomorrow|||I am visiting my cousins tomorrow.|||headache|||toothache|||X-ray|||I'm sorry to hear that.|||You should rest and drink water.|||You should not eat too much.|||Touch this blanket. It feels soft.|||This cake tastes sweet.|||That music sounds loud.|||He was tired, so he went to bed early.|||as a result|||It was raining so I stayed home.|||You must not run in the hallway.|||I hope you feel better soon.|||They are playing.|||chicken pox".split("|||");
+function sayQ(i){say(SAY[i]);}
 function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
 
 var QUESTOES=[
@@ -231,7 +238,7 @@ function aplicarGabarito(revelar){
      if(q.tp==='re'){extra='<b>Frase certa: '+reCorretaTexto(i)+'</b><br>';}
      if(q.tp==='mc'){var ci2=corretaIndexMC(i);extra='<b>Resposta certa: '+L[ci2]+') '+q.order[ci2].t+'</b><br>';}
      var marca=acertou(i)?'✅ ':'❌ ';
-     e.innerHTML=marca+extra+q.e;}
+     e.innerHTML=marca+extra+q.e+' <button class="spk" onclick="sayQ('+i+')">🔊 ouvir</button>';}
  });
 }
 function reCorretaTexto(i){var q=QUESTOES[i];var w=q.correta.split(' ');w[0]=w[0].charAt(0).toUpperCase()+w[0].slice(1);return w.join(' ')+'.';}
