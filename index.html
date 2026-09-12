@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit de Inglês 7º · Estação Espacial Get Well · Colégio Legado</title>
+<style>
+:root{--bg:#070b1e;--panel:#111d44;--ink:#eaf2ff;--dim:#9fb2da;--cyan:#39e0ff;--cyan2:#0bbad6;
+ --green:#4ade80;--green2:#16a34a;--amber:#fbbf24;--red:#fb5a6a;--line:#26356b;--chip:#0c1a3c;--shadow:0 10px 30px rgba(0,0,0,.45)}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;
+ background:radial-gradient(1100px 600px at 15% -8%,#12235c 0,transparent 60%),radial-gradient(900px 500px at 108% 12%,#0a3b52 0,transparent 55%),var(--bg)}
+.stars{position:fixed;inset:0;z-index:0;opacity:.5;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:20px 16px 60px}
+header.top{text-align:center;padding:30px 12px 8px}
+.badge{display:inline-block;background:linear-gradient(90deg,var(--green2),var(--cyan2));color:#031326;font-weight:800;padding:6px 16px;border-radius:999px;font-size:.82rem}
+h1{font-size:2rem;margin:.5rem 0 .2rem;text-shadow:0 0 22px rgba(57,224,255,.4)}
+.sub{color:var(--dim)}
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:16px 0;box-shadow:var(--shadow)}
+.hero h2{color:var(--cyan);margin:.1rem 0 .4rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:16px 0}
+.card{display:block;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);transition:.15s}
+.card:hover{transform:translateY(-3px);border-color:var(--cyan)}
+.card .ic{font-size:2rem}
+.card .n{font-weight:800;font-size:1.12rem;margin:.3rem 0 .1rem;color:var(--cyan)}
+.card .d{color:var(--dim);font-size:.9rem}
+.card .step{display:inline-block;background:var(--chip);border:1px solid var(--line);color:var(--dim);font-size:.72rem;padding:2px 9px;border-radius:999px;margin-bottom:6px}
+.how{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0}
+.how ol{margin:.4rem 0 0;padding-left:1.2rem}.how li{margin:.3rem 0}
+.tip{background:#fde68a;color:#3a2f05;border-radius:12px;padding:12px 16px;margin:14px 0;font-weight:600;box-shadow:2px 3px 8px rgba(0,0,0,.35)}
+.parent{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0}
+.parent h2{color:var(--green);margin:.1rem 0 .3rem}
+.parent input{background:var(--chip);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:9px 12px;font-size:1rem;text-transform:uppercase;letter-spacing:1px;width:170px;text-align:center}
+.btn{cursor:pointer;border:none;border-radius:10px;padding:9px 16px;font-weight:800;background:linear-gradient(90deg,var(--cyan2),var(--cyan));color:#04121f}
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:10px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+th{background:var(--chip);color:var(--cyan)}
+.foot{text-align:center;color:var(--dim);font-size:.82rem;margin-top:20px}
+@media(max-width:520px){h1{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<canvas class="stars" id="stars"></canvas>
+<div class="wrap">
+ <header class="top">
+  <span class="badge">🚀 ESTAÇÃO ESPACIAL GET WELL</span>
+  <h1>Kit de Inglês · 7º ano</h1>
+  <div class="sub">Colégio Legado · Livro YTEEN 4 · Units 1 & 2 · Prova <b>14/09</b></div>
+ </header>
+
+ <div class="hero">
+  <h2>Bem-vindo(a) a bordo, jovem aprendiz! 🛰️</h2>
+  <p>Nesta missão você vai reencontrar velhos amigos da tripulação (Unit 1 — <i>Meeting old friends</i>) e cuidar da saúde da estação (Unit 2 — <i>I hope you get well soon</i>). Estude na ordem abaixo: cada etapa prepara para a próxima.</p>
+ </div>
+
+ <div class="cards">
+  <a class="card" href="ingles_legado_leitura_guiada.html"><span class="step">Etapa 1</span><div class="ic">📖</div><div class="n">Leitura Guiada</div><div class="d">Aprenda a matéria em blocos e responda com suas palavras.</div></a>
+  <a class="card" href="ingles_legado_quiz.html"><span class="step">Etapa 2</span><div class="ic">🎯</div><div class="n">Quiz</div><div class="d">15 perguntas rápidas para testar o que entendeu. Código MED.</div></a>
+  <a class="card" href="ingles_legado_resumo.html"><span class="step">Etapa 3</span><div class="ic">🗺️</div><div class="n">Resumo com Áudio</div><div class="d">Revise os pontos-chave e ouça a pronúncia 🔊.</div></a>
+  <a class="card" href="ingles_legado_simulado.html"><span class="step">Etapa 4</span><div class="ic">📝</div><div class="n">Simulado</div><div class="d">26 questões no formato da prova. Código SIM.</div></a>
+ </div>
+
+ <div class="how">
+  <h3 style="color:var(--cyan);margin-top:0">🧭 Como usar este material</h3>
+  <ol>
+   <li><b>Leitura Guiada</b> — leia com calma e escreva as respostas com <i>suas palavras</i> (não copie o texto).</li>
+   <li><b>Quiz</b> — teste o que aprendeu enquanto está fresco.</li>
+   <li><b>Resumo</b> — feche as dúvidas que o Quiz mostrou e ouça a pronúncia.</li>
+   <li><b>Simulado</b> — só depois, como uma prova de verdade.</li>
+  </ol>
+  <div class="tip">💡 Dica: cada material tem um <b>relógio de estudo</b>. A sessão é de 45 minutos e depois pede uma pausa de 5 minutos — é normal e ajuda o cérebro a fixar. 💧</div>
+ </div>
+
+ <div class="parent">
+  <h2>📊 Relatório para os pais</h2>
+  <p class="sub">Digite um código de liberação (o <b>MED</b> do Quiz, o <b>SIM</b> do Simulado) ou o código fixo da família <b>PAIS-77</b> para ver o tempo de estudo e os acertos.</p>
+  <div style="margin-top:8px"><input id="pcode" placeholder="PAIS-77" maxlength="9"> <button class="btn" onclick="abrirRelatorio()">Ver relatório</button></div>
+  <div id="relOut"></div>
+ </div>
+
+ <div class="foot">Feito com carinho pela Estação Get Well · Inglês 7º · Colégio Legado 🚀</div>
+</div>
+
+<script>
+var MEM={};var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return MEM[k]||null}}};
+function jget(k){try{return JSON.parse(LS.get(k)||'null')}catch(e){return null}}
+function fmt(s){if(s==null)return '—';s=Math.max(0,Math.floor(s));var m=Math.floor(s/60),ss=s%60;return m+'min '+(ss<10?'0':'')+ss+'s';}
+
+function coletar(){
+ var out=[];
+ var lt=jget('ing_legado_leitura_tempo')||{};var ls=jget('ing_legado_leitura')||{};
+ var vermelhas=0,naos=0;
+ for(var k in ls){if(ls[k]&&ls[k].transcrita)vermelhas++;if(ls[k]&&ls[k].chk){for(var c in ls[k].chk){if(ls[k].chk[c]==='nao')naos++;}}}
+ out.push({nome:'📖 Leitura Guiada',total:lt.total,ativo:lt.ativo,extra:'vermelhas: '+vermelhas+' · checklist "não": '+naos});
+ var qt=jget('ing_legado_quiz_tempo')||{};var qs=jget('ing_legado_quiz')||{};
+ out.push({nome:'🎯 Quiz',total:qt.total,ativo:qt.ativo,extra:qs.enviado?('acertos: '+(qs.acertos!=null?qs.acertos:'—')+'/15 · '+(qs.code||'')):'ainda não enviado'});
+ var rt=jget('ing_legado_resumo_tempo')||{};var rs=jget('ing_legado_resumo')||{};
+ out.push({nome:'🗺️ Resumo',total:rt.total,ativo:rt.ativo,extra:'leitura: '+((rt.maxScroll||rs.maxScroll||0))+'%'});
+ var st=jget('ing_legado_simulado_tempo')||{};var ss=jget('ing_legado_simulado')||{};
+ out.push({nome:'📝 Simulado',total:st.total,ativo:st.ativo,extra:ss.enviado?('acertos: '+(ss.acertos!=null?ss.acertos:'—')+'/26 · '+(ss.code||'')):'ainda não enviado'});
+ return out;
+}
+function codigoValido(v){
+ if(v==='PAIS-77')return true;
+ var qs=jget('ing_legado_quiz')||{};var ss=jget('ing_legado_simulado')||{};
+ if(qs.code&&v===qs.code)return true;if(ss.code&&v===ss.code)return true;
+ return false;
+}
+function abrirRelatorio(){
+ var v=document.getElementById('pcode').value.trim().toUpperCase();
+ var out=document.getElementById('relOut');
+ if(!codigoValido(v)){out.innerHTML='<p class="sub" style="margin-top:10px">Código não confere. Use PAIS-77, ou o código MED/SIM que a criança recebeu ao terminar.</p>';return;}
+ var dados=coletar();var tempoTotalAtivo=0;dados.forEach(function(d){if(d.ativo)tempoTotalAtivo+=d.ativo;});
+ var linhas=dados.map(function(d){return '<tr><td>'+d.nome+'</td><td>'+fmt(d.total)+'</td><td>'+fmt(d.ativo)+'</td><td>'+d.extra+'</td></tr>';}).join('');
+ out.innerHTML='<table><thead><tr><th>Material</th><th>Tempo total</th><th>Tempo ativo</th><th>Desempenho</th></tr></thead><tbody>'+linhas+'</tbody></table>'+
+  '<p class="sub" style="margin-top:8px">⏱️ Tempo ativo somado: <b>'+fmt(tempoTotalAtivo)+'</b> · referência saudável de estudo: cerca de 1h no total. Sem cobrança — é só um guia. 🙂</p>';
+}
+(function(){var c=document.getElementById('stars');var x=c.getContext('2d');function rs(){c.width=innerWidth;c.height=innerHeight;}rs();addEventListener('resize',rs);var st=[];for(var i=0;i<90;i++)st.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.4,a:Math.random()});(function d(){x.clearRect(0,0,c.width,c.height);st.forEach(function(s){s.a+=(Math.random()-.5)*.05;if(s.a<0)s.a=0;if(s.a>1)s.a=1;x.fillStyle='rgba(180,220,255,'+s.a+')';x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fill();});requestAnimationFrame(d);})();})();
+</script>
+</body>
+</html>
