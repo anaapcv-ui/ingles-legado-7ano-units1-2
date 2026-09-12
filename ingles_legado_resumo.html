@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo · Estação Espacial Get Well · Inglês 7º</title>
+<style>
+:root{--bg:#070b1e;--panel:#111d44;--ink:#eaf2ff;--dim:#9fb2da;--cyan:#39e0ff;--cyan2:#0bbad6;
+ --green:#4ade80;--green2:#16a34a;--amber:#fbbf24;--red:#fb5a6a;--line:#26356b;--chip:#0c1a3c;--shadow:0 10px 30px rgba(0,0,0,.45)}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;
+ background:radial-gradient(1100px 600px at 15% -8%,#12235c 0,transparent 60%),radial-gradient(900px 500px at 108% 12%,#0a3b52 0,transparent 55%),var(--bg)}
+.stars{position:fixed;inset:0;z-index:0;opacity:.5;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:16px 16px 90px}
+header.top{text-align:center;padding:24px 12px 6px}
+.badge{display:inline-block;background:linear-gradient(90deg,var(--green2),var(--cyan2));color:#031326;font-weight:800;padding:5px 14px;border-radius:999px;font-size:.8rem}
+h1{font-size:1.7rem;margin:.4rem 0 .2rem;text-shadow:0 0 18px rgba(57,224,255,.35)}
+.sub{color:var(--dim)}
+#relogioBar{position:sticky;top:0;z-index:30;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;
+ background:rgba(9,15,40,.92);border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin:12px 0;backdrop-filter:blur(6px);font-size:.9rem}
+#relogioBar b{color:var(--cyan)}
+.rlg-chip{background:var(--chip);border:1px solid var(--line);padding:4px 10px;border-radius:999px;color:var(--dim)}
+.rlg-chip.ativo{color:var(--green)}
+#gate{position:fixed;inset:0;z-index:60;background:rgba(4,7,20,.97);display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
+#gate .card{max-width:460px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px 26px;box-shadow:var(--shadow)}
+.bigbtn{cursor:pointer;border:none;border-radius:14px;padding:16px 26px;font-size:1.12rem;font-weight:800;background:linear-gradient(90deg,var(--green),var(--cyan));color:#04121f;box-shadow:0 8px 22px rgba(57,224,255,.35)}
+#content.locked{filter:blur(7px);pointer-events:none}
+.section{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:16px 0;box-shadow:var(--shadow)}
+.section h2{color:var(--cyan);margin:.1rem 0 .3rem;font-size:1.25rem}
+.section .tag{display:inline-block;background:var(--chip);border:1px solid var(--line);color:var(--dim);font-size:.72rem;padding:3px 9px;border-radius:999px;margin-bottom:8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:10px 0}
+.vcard{background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.vcard .en{color:var(--cyan);font-weight:800;font-size:1.02rem}
+.vcard .pt{color:var(--dim);font-size:.9rem}
+.spk{cursor:pointer;border:none;background:rgba(57,224,255,.15);color:var(--cyan);border:1px solid var(--line);border-radius:8px;padding:2px 9px;font-size:.85rem;margin-left:6px}
+.spk:hover{background:rgba(57,224,255,.28)}
+.ex{background:#0a1530;border-left:4px solid var(--green);border-radius:8px;padding:8px 12px;margin:8px 0}
+.ex b{color:var(--green)}
+.en{color:var(--cyan)}.pt{color:var(--dim)}
+.postit{background:#fde68a;color:#3a2f05;border-radius:10px;padding:10px 14px;margin:10px 0;box-shadow:2px 3px 8px rgba(0,0,0,.35);font-weight:600}
+.trap{background:rgba(251,90,106,.10);border:1px solid var(--red);border-radius:12px;padding:10px 14px;margin:10px 0}
+.trap b{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:8px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+th{background:var(--chip);color:var(--cyan)}
+.btn.ghost{cursor:pointer;background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:10px;padding:5px 12px;font-weight:700;font-size:.85rem}
+.nav{display:flex;justify-content:space-between;gap:10px;margin:22px 0}
+.nav a{flex:1;text-align:center;text-decoration:none;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px;font-weight:700}
+.nav a.next{background:linear-gradient(90deg,var(--green2),var(--cyan2));color:#04121f}
+.savebar{position:fixed;bottom:0;left:0;right:0;z-index:40;background:rgba(9,15,40,.95);border-top:1px solid var(--line);padding:8px 10px;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:.82rem;backdrop-filter:blur(6px)}
+.savebar button{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer;font-size:.82rem}
+.savebar .st{color:var(--dim)}
+.modal{position:fixed;inset:0;z-index:70;background:rgba(4,7,20,.85);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal .box{max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center}
+.modal .row{display:flex;gap:10px;justify-content:center;margin-top:14px}
+@media(max-width:520px){h1{font-size:1.4rem}.wrap{padding:10px 10px 96px}}
+</style>
+</head>
+<body>
+<canvas class="stars" id="stars"></canvas>
+<div class="wrap">
+ <header class="top"><span class="badge">🚀 ESTAÇÃO GET WELL · INGLÊS 7º</span>
+  <h1>🗺️ Resumo com Áudio</h1>
+  <div class="sub">Toque em 🔊 para ouvir a pronúncia · Units 1 & 2 · Prova 14/09</div>
+ </header>
+
+ <div id="relogioBar">
+  <span>⏱️ Tempo: <b id="rlgTotal">00:00</b></span>
+  <span class="rlg-chip" id="rlgAtivoChip">ativo <b id="rlgAtivo">00:00</b></span>
+  <span class="rlg-chip" id="rolChip">leitura 0%</span>
+  <button class="btn ghost" style="padding:4px 10px;margin:0" onclick="RELOGIO.terminar()">⏹ Terminar agora</button>
+ </div>
+
+ <div id="content" class="locked">
+
+  <div class="section">
+   <span class="tag">Unit 1 · Gramática</span>
+   <h2>1. Present Continuous — 3 usos</h2>
+   <p>Fórmula: <b class="en">am / is / are + verbo-ing</b>. <button class="spk" onclick="say('She is reading a book right now')">🔊</button></p>
+   <table><thead><tr><th>Uso</th><th>Exemplo</th></tr></thead><tbody>
+    <tr><td>Agora (momento da fala)</td><td class="en">Look! Your brother is calling you.</td></tr>
+    <tr><td>Temporário / mudando</td><td class="en">I'm sleeping in my sister's room these days.</td></tr>
+    <tr><td>Plano futuro combinado</td><td class="en">Adam is having his wisdom teeth removed tomorrow morning.</td></tr>
+   </tbody></table>
+   <div class="postit">💡 Dica de prova: no plano futuro sempre há uma expressão de tempo futura (tomorrow, next week, later today).</div>
+  </div>
+
+  <div class="section">
+   <span class="tag">Unit 1 · Modais</span>
+   <h2>2. Must / Have to · Must not / Don't have to</h2>
+   <div class="cards">
+    <div class="vcard"><div class="en">must / have to <button class="spk" onclick="say('must, have to')">🔊</button></div><div class="pt">obrigação / necessidade (preciso, tenho que)</div></div>
+    <div class="vcard"><div class="en">must not (mustn't) <button class="spk" onclick="say('must not')">🔊</button></div><div class="pt">proibição (é proibido)</div></div>
+    <div class="vcard"><div class="en">don't / doesn't have to <button class="spk" onclick="say('do not have to')">🔊</button></div><div class="pt">não é preciso (mas pode)</div></div>
+    <div class="vcard"><div class="en">has to <button class="spk" onclick="say('has to')">🔊</button></div><div class="pt">com he / she / it</div></div>
+   </div>
+   <div class="ex"><b>You must not use your cell phone in class.</b> <span class="pt">(proibido)</span></div>
+   <div class="ex"><b>You don't have to do everything in a day.</b> <span class="pt">(não é obrigatório)</span></div>
+   <div class="trap">⚠️ <b>Pegadinha:</b> "must not" = PROIBIDO ≠ "don't have to" = NÃO é preciso. São opostos! Depois de <b>must</b> e <b>should</b>, o verbo vem sem "to".</div>
+  </div>
+
+  <div class="section">
+   <span class="tag">Unit 1 · Vocabulário</span>
+   <h2>3. Expressões de tempo</h2>
+   <table><thead><tr><th>Momento exato</th><th>Tempo impreciso</th></tr></thead><tbody>
+    <tr><td class="en">right away <button class="spk" onclick="say('right away')">🔊</button></td><td class="en">every other day <button class="spk" onclick="say('every other day')">🔊</button></td></tr>
+    <tr><td class="en">this instant <button class="spk" onclick="say('this instant')">🔊</button></td><td class="en">from time to time <button class="spk" onclick="say('from time to time')">🔊</button></td></tr>
+    <tr><td class="en">the day after tomorrow <button class="spk" onclick="say('the day after tomorrow')">🔊</button></td><td class="en">school night / never <button class="spk" onclick="say('school night, never')">🔊</button></td></tr>
+   </tbody></table>
+   <div class="cards">
+    <div class="vcard"><div class="en">curfew <button class="spk" onclick="say('curfew')">🔊</button></div><div class="pt">toque de recolher (hora de chegar)</div></div>
+    <div class="vcard"><div class="en">in a hurry <button class="spk" onclick="say('in a hurry')">🔊</button></div><div class="pt">com pressa</div></div>
+    <div class="vcard"><div class="en">it's due tomorrow <button class="spk" onclick="say('it is due tomorrow')">🔊</button></div><div class="pt">vence / entrega amanhã</div></div>
+   </div>
+  </div>
+
+  <div class="section">
+   <span class="tag">Unit 2 · Vocabulário</span>
+   <h2>4. Doenças e sintomas</h2>
+   <div class="cards">
+    <div class="vcard"><div class="en">allergies <button class="spk" onclick="say('allergies')">🔊</button></div><div class="pt">alergias</div></div>
+    <div class="vcard"><div class="en">asthma <button class="spk" onclick="say('asthma')">🔊</button></div><div class="pt">asma</div></div>
+    <div class="vcard"><div class="en">chicken pox <button class="spk" onclick="say('chicken pox')">🔊</button></div><div class="pt">catapora</div></div>
+    <div class="vcard"><div class="en">cramps <button class="spk" onclick="say('cramps')">🔊</button></div><div class="pt">cólicas</div></div>
+    <div class="vcard"><div class="en">dizziness <button class="spk" onclick="say('dizziness')">🔊</button></div><div class="pt">tontura</div></div>
+    <div class="vcard"><div class="en">ear infection <button class="spk" onclick="say('ear infection')">🔊</button></div><div class="pt">infecção de ouvido</div></div>
+    <div class="vcard"><div class="en">insect bite <button class="spk" onclick="say('insect bite')">🔊</button></div><div class="pt">picada de inseto</div></div>
+    <div class="vcard"><div class="en">pinkeye <button class="spk" onclick="say('pinkeye')">🔊</button></div><div class="pt">conjuntivite</div></div>
+    <div class="vcard"><div class="en">sore throat <button class="spk" onclick="say('sore throat')">🔊</button></div><div class="pt">dor de garganta</div></div>
+    <div class="vcard"><div class="en">sunburn <button class="spk" onclick="say('sunburn')">🔊</button></div><div class="pt">queimadura de sol</div></div>
+    <div class="vcard"><div class="en">headache <button class="spk" onclick="say('headache')">🔊</button></div><div class="pt">dor de cabeça</div></div>
+    <div class="vcard"><div class="en">toothache <button class="spk" onclick="say('toothache')">🔊</button></div><div class="pt">dor de dente</div></div>
+    <div class="vcard"><div class="en">stomachache <button class="spk" onclick="say('stomachache')">🔊</button></div><div class="pt">dor de barriga</div></div>
+    <div class="vcard"><div class="en">medicine <button class="spk" onclick="say('medicine')">🔊</button></div><div class="pt">remédio</div></div>
+    <div class="vcard"><div class="en">wisdom teeth <button class="spk" onclick="say('wisdom teeth')">🔊</button></div><div class="pt">dentes do siso</div></div>
+    <div class="vcard"><div class="en">X-ray <button class="spk" onclick="say('X-ray')">🔊</button></div><div class="pt">raio-X</div></div>
+    <div class="vcard"><div class="en">E.R. (emergency room) <button class="spk" onclick="say('emergency room')">🔊</button></div><div class="pt">pronto-socorro</div></div>
+    <div class="vcard"><div class="en">bedridden <button class="spk" onclick="say('bedridden')">🔊</button></div><div class="pt">de cama (sem poder levantar)</div></div>
+   </div>
+   <div class="postit">💡 Sufixo <b>-ache</b> = dor → head+ache, tooth+ache, stomach+ache.</div>
+  </div>
+
+  <div class="section">
+   <span class="tag">Unit 2 · Comunicação</span>
+   <h2>5. Solidariedade e conselho</h2>
+   <table><thead><tr><th>Solidariedade (sympathy)</th><th>Conselho (advice)</th></tr></thead><tbody>
+    <tr><td class="en">I'm sorry to hear that. <button class="spk" onclick="say('I am sorry to hear that')">🔊</button></td><td class="en">You should rest and drink water. <button class="spk" onclick="say('You should rest and drink water')">🔊</button></td></tr>
+    <tr><td class="en">That's too bad. / That's awful! <button class="spk" onclick="say('That is too bad. That is awful')">🔊</button></td><td class="en">You shouldn't go to bed with wet hair. <button class="spk" onclick="say('You should not go to bed with wet hair')">🔊</button></td></tr>
+    <tr><td class="en">I hope you feel better soon. <button class="spk" onclick="say('I hope you feel better soon')">🔊</button></td><td class="en">Why don't you...? / Maybe you should... <button class="spk" onclick="say('Why do not you? Maybe you should')">🔊</button></td></tr>
+   </tbody></table>
+   <div class="postit">💡 <b>should</b> = deveria (conselho) · <b>shouldn't</b> = não deveria. Verbo sem "to" depois.</div>
+  </div>
+
+  <div class="section">
+   <span class="tag">Unit 2 · Gramática</span>
+   <h2>6. Verbos de sensação + adjetivos</h2>
+   <div class="cards">
+    <div class="vcard"><div class="en">look <button class="spk" onclick="say('look')">🔊</button></div><div class="pt">parecer (aparência — olhos)</div></div>
+    <div class="vcard"><div class="en">smell <button class="spk" onclick="say('smell')">🔊</button></div><div class="pt">cheirar (nariz)</div></div>
+    <div class="vcard"><div class="en">taste <button class="spk" onclick="say('taste')">🔊</button></div><div class="pt">ter gosto (boca)</div></div>
+    <div class="vcard"><div class="en">sound <button class="spk" onclick="say('sound')">🔊</button></div><div class="pt">soar (ouvido)</div></div>
+    <div class="vcard"><div class="en">feel <button class="spk" onclick="say('feel')">🔊</button></div><div class="pt">sentir ao tocar (tato)</div></div>
+    <div class="vcard"><div class="en">seem <button class="spk" onclick="say('seem')">🔊</button></div><div class="pt">parecer (impressão geral)</div></div>
+   </div>
+   <div class="ex"><b>The cake smells good and tastes sweet. The cat feels soft.</b></div>
+   <div class="trap">⚠️ <b>Pegadinha:</b> cada verbo combina com UM sentido. "Touch it — it <s>tastes</s> soft" → o certo é <b>feels</b> soft.</div>
+  </div>
+
+  <div class="section">
+   <span class="tag">Unit 2 · Gramática</span>
+   <h2>7. SO — resultado e consequência</h2>
+   <p><b class="en">so</b> liga a causa ao resultado (causa + <b>so</b> + resultado). <button class="spk" onclick="say('so')">🔊</button></p>
+   <div class="ex"><b>He failed the exam, so he didn't get the certificate.</b></div>
+   <div class="cards">
+    <div class="vcard"><div class="en">as a consequence <button class="spk" onclick="say('as a consequence')">🔊</button></div><div class="pt">como consequência</div></div>
+    <div class="vcard"><div class="en">as a result <button class="spk" onclick="say('as a result')">🔊</button></div><div class="pt">como resultado</div></div>
+    <div class="vcard"><div class="en">and that's why <button class="spk" onclick="say('and that is why')">🔊</button></div><div class="pt">e é por isso que</div></div>
+   </div>
+   <div class="trap">⚠️ <b>Não confunda:</b> <b>so</b> = resultado (vem depois da causa) · <b>because</b> = causa (responde "por quê?").</div>
+  </div>
+
+  <div class="nav">
+   <a href="ingles_legado_quiz.html">← Quiz</a>
+   <a class="next" href="ingles_legado_simulado.html">📝 Ir para o Simulado →</a>
+  </div>
+ </div>
+</div>
+
+<div id="gate"><div class="card">
+ <div style="font-size:2.4rem">⏱️🔊</div>
+ <h2>Resumo com áudio</h2>
+ <p class="sub">Ao tocar em <b>Começar</b>, ligo o relógio. Use os botões 🔊 para ouvir a pronúncia em inglês.</p>
+ <button class="bigbtn" onclick="RELOGIO.iniciar()">🚀 Começar</button>
+</div></div>
+
+<div class="modal" id="breakModal"><div class="box"><div style="font-size:2.2rem">🛰️☕</div><h3>Pausa obrigatória</h3><p class="sub">45 minutos! Levante e beba água.<br>Libera em <b id="breakLeft">05:00</b>.</p></div></div>
+<div class="modal" id="endModal"><div class="box"><h3>Terminar agora?</h3><p class="sub">Seu tempo de estudo fica salvo.</p><div class="row"><button class="btn ghost" onclick="RELOGIO._closeEnd()">Continuar</button><button class="btn" style="cursor:pointer;border:none;border-radius:12px;padding:10px 18px;font-weight:800;background:linear-gradient(90deg,var(--cyan2),var(--cyan));color:#04121f" onclick="RELOGIO._doEnd()">Sim, terminar</button></div></div></div>
+
+<div class="savebar">
+ <span class="st" id="saveSt">💾 salvo automaticamente</span>
+ <button onclick="SAVE.exportar()">📥 Exportar</button>
+ <button onclick="document.getElementById('impFile').click()">📤 Importar</button>
+ <input type="file" id="impFile" accept=".json" style="display:none" onchange="SAVE.importar(this)">
+ <button onclick="SAVE.zerar()">🗑️ Zerar tudo</button>
+</div>
+
+<script>
+var MEM={};var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return MEM[k]||null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){MEM[k]=v}},del:function(k){try{localStorage.removeItem(k)}catch(e){delete MEM[k]}}};
+var KEY='ing_legado_resumo';
+function say(t){try{if(!('speechSynthesis'in window))return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.82;speechSynthesis.speak(u);}catch(e){}}
+var maxScroll=0;
+var svt;function flash(){var el=document.getElementById('saveSt');el.textContent='💾 salvo '+new Date().toLocaleTimeString('pt-BR').slice(0,5);clearTimeout(svt);svt=setTimeout(function(){el.textContent='💾 salvo automaticamente'},2500);}
+function trackScroll(){var h=document.documentElement.scrollHeight-window.innerHeight;var p=h>0?Math.round((window.scrollY/h)*100):100;if(p>maxScroll){maxScroll=Math.min(100,p);document.getElementById('rolChip').textContent='leitura '+maxScroll+'%';LS.set(KEY,JSON.stringify({maxScroll:maxScroll}));}}
+window.addEventListener('scroll',function(){RELOGIO.marcaAtividade();trackScroll();},{passive:true});
+(function(){try{var d=JSON.parse(LS.get(KEY)||'{}');if(d.maxScroll){maxScroll=d.maxScroll;document.getElementById('rolChip').textContent='leitura '+maxScroll+'%';}}catch(e){}})();
+
+var RELOGIO=(function(){
+ var TKEY=KEY+'_tempo',SESSAO=45*60,PAUSA=5*60,INAT=3*60;
+ var total=0,ativo=0,running=false,lastAct=Date.now(),tickH=null,sessAcc=0,sessoes=[];
+ function load(){try{var d=JSON.parse(LS.get(TKEY)||'{}');total=d.total||0;ativo=d.ativo||0;sessoes=d.sessoes||[];}catch(e){}}
+ function persist(){LS.set(TKEY,JSON.stringify({total:total,ativo:ativo,sessoes:sessoes,maxScroll:maxScroll}));}
+ function fmt(s){s=Math.max(0,Math.floor(s));var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+ function paint(){document.getElementById('rlgTotal').textContent=fmt(total);document.getElementById('rlgAtivo').textContent=fmt(ativo);document.getElementById('rlgAtivoChip').classList.toggle('ativo',running&&(Date.now()-lastAct)<INAT*1000);}
+ function tick(){if(!running)return;total++;var idle=(Date.now()-lastAct)/1000;if(idle<INAT){ativo++;sessAcc++;}if(sessAcc>=SESSAO)startBreak();persist();paint();}
+ function startBreak(){running=false;sessAcc=0;var m=document.getElementById('breakModal');m.classList.add('show');var bl=PAUSA;document.getElementById('breakLeft').textContent=fmt(bl);var h=setInterval(function(){bl--;document.getElementById('breakLeft').textContent=fmt(bl);if(bl<=0){clearInterval(h);m.classList.remove('show');running=true;lastAct=Date.now();}},1000);}
+ return{iniciar:function(){load();document.getElementById('gate').style.display='none';document.getElementById('content').classList.remove('locked');running=true;lastAct=Date.now();sessAcc=0;sessoes.push({ini:new Date().toISOString()});if(!tickH)tickH=setInterval(tick,1000);paint();},
+  marcaAtividade:function(){lastAct=Date.now();if(!running)running=true;},
+  terminar:function(){document.getElementById('endModal').classList.add('show');},
+  _closeEnd:function(){document.getElementById('endModal').classList.remove('show');},
+  _doEnd:function(){running=false;if(sessoes.length)sessoes[sessoes.length-1].fim=new Date().toISOString();persist();document.getElementById('endModal').classList.remove('show');var m=document.getElementById('breakModal');m.querySelector('h3').textContent='Estudo encerrado 👋';m.querySelector('.box').innerHTML='<div style="font-size:2.2rem">✔️</div><h3>Estudo salvo!</h3><p class="sub">Tempo total: '+fmt(total)+' · ativo: '+fmt(ativo)+' · leitura: '+maxScroll+'%.</p><button class="btn ghost" onclick="document.getElementById(\'breakModal\').classList.remove(\'show\')">Ok</button>';m.classList.add('show');},
+  dados:function(){return{total:total,ativo:ativo,sessoes:sessoes,maxScroll:maxScroll};},
+  _debug:function(o){if(o&&o.restante!=null)sessAcc=SESSAO-o.restante;return{total:total,ativo:ativo,sessAcc:sessAcc};}};
+})();
+['click','keydown','input'].forEach(function(ev){document.addEventListener(ev,function(){RELOGIO.marcaAtividade();},{passive:true});});
+
+var SAVE={
+ exportar:function(){var data={material:'resumo',key:KEY,quando:new Date().toISOString(),tempo:RELOGIO.dados(),maxScroll:maxScroll};var b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='resumo_ingles_7ano.json';a.click();},
+ importar:function(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);if(d.tempo)LS.set(KEY+'_tempo',JSON.stringify(d.tempo));if(d.maxScroll)LS.set(KEY,JSON.stringify({maxScroll:d.maxScroll}));location.reload();}catch(e){}};r.readAsText(f);},
+ zerar:function(){var m=document.getElementById('endModal');m.querySelector('.box').innerHTML='<h3>Apagar tudo?</h3><p class="sub">Zera tempo e leitura.</p><div class="row"><button class="btn ghost" onclick="document.getElementById(\'endModal\').classList.remove(\'show\')">Cancelar</button><button class="btn ghost" id="zok">Sim</button></div>';m.classList.add('show');document.getElementById('zok').onclick=function(){LS.del(KEY);LS.del(KEY+'_tempo');location.reload();};}
+};
+flash();
+(function(){var c=document.getElementById('stars');var x=c.getContext('2d');function rs(){c.width=innerWidth;c.height=innerHeight;}rs();addEventListener('resize',rs);var st=[];for(var i=0;i<80;i++)st.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.4,a:Math.random()});(function d(){x.clearRect(0,0,c.width,c.height);st.forEach(function(s){s.a+=(Math.random()-.5)*.05;if(s.a<0)s.a=0;if(s.a>1)s.a=1;x.fillStyle='rgba(180,220,255,'+s.a+')';x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fill();});requestAnimationFrame(d);})();})();
+</script>
+</body>
+</html>
