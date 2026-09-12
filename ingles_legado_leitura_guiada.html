@@ -95,6 +95,8 @@ th{background:#0c1a3c;color:var(--cyan)}
 .modal .box{max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center}
 .modal .box h3{margin-top:0}
 .modal .row{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.spk{cursor:pointer;background:rgba(57,224,255,.15);color:var(--cyan);border:1px solid var(--line);border-radius:8px;padding:0 7px;font-size:.8rem;margin-left:5px;vertical-align:middle;line-height:1.5}
+.spk:hover{background:rgba(57,224,255,.28)}
 @media(max-width:520px){h1{font-size:1.4rem}.wrap{padding:10px 10px 90px}}
 </style>
 </head>
@@ -105,6 +107,7 @@ th{background:#0c1a3c;color:var(--cyan)}
     <span class="badge">🚀 ESTAÇÃO GET WELL · INGLÊS 7º</span>
     <h1>📖 Leitura Guiada</h1>
     <div class="sub">Units 1 & 2 · Colégio Legado · Prova 14/09 — Bem-vindo(a) à bordo, jovem aprendiz!</div>
+    <div class="sub" style="font-size:.85rem;margin-top:2px">🔊 = toque para ouvir a pronúncia em inglês</div>
   </header>
 
   <div id="relogioBar">
@@ -185,6 +188,10 @@ var LS={
   del:function(k){try{localStorage.removeItem(k)}catch(e){delete MEM[k]}}
 };
 var KEY='ing_legado_leitura';
+
+/* AUDIO en-US (mesmo mecanismo do Resumo) - so em ingles */
+function say(t){try{if(!("speechSynthesis" in window))return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.82;speechSynthesis.speak(u);}catch(e){}}
+function addAudio(){var ns=document.querySelectorAll("#blocks .txt .en, #blocks .txt .ex b");for(var i=0;i<ns.length;i++){var el=ns[i];if(el.getAttribute("data-spk"))continue;var t=(el.textContent||"").trim();if(t.length<2)continue;el.setAttribute("data-spk","1");var b=document.createElement("button");b.type="button";b.className="spk";b.textContent="🔊";(function(x){b.onclick=function(ev){ev.stopPropagation();say(x);};})(t);el.insertAdjacentElement("afterend",b);}}
 
 var BLOCOS=[
 {id:'b1',tag:'Unit 1 · Present Continuous',titulo:'Present Continuous — o que acontece AGORA',
@@ -474,7 +481,7 @@ function render(){
     div.innerHTML=h;host.appendChild(div);
     if(open)bl.perguntas.forEach(function(pg,qi){var st=STATE[qKey(bi,qi)];if(st&&st.feito)showModelo(bi,qi);});
   });
-  renderTraps();renderCover();renderRev();
+  renderTraps();renderCover();renderRev();addAudio();
 }
 function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderTraps(){document.getElementById('trapList').innerHTML=PEGADINHAS.map(function(t){return '<li>'+t+'</li>'}).join('');}
