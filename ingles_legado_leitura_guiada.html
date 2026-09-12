@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leitura Guiada · Estação Espacial Get Well · Inglês 7º</title>
+<style>
+:root{
+  --bg:#070b1e; --bg2:#0d1633; --panel:#111d44; --panel2:#152a5e; --ink:#eaf2ff;
+  --dim:#9fb2da; --cyan:#39e0ff; --cyan2:#0bbad6; --green:#4ade80; --green2:#16a34a;
+  --amber:#fbbf24; --red:#fb5a6a; --line:#26356b; --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Segoe UI',system-ui,Arial,sans-serif;background:
+   radial-gradient(1100px 600px at 15% -8%,#12235c 0,transparent 60%),
+   radial-gradient(900px 500px at 108% 12%,#0a3b52 0,transparent 55%),
+   var(--bg);
+  color:var(--ink);line-height:1.6;min-height:100vh;
+}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:16px 16px 80px}
+header.top{text-align:center;padding:26px 14px 10px}
+.badge{display:inline-block;background:linear-gradient(90deg,var(--green2),var(--cyan2));
+  color:#062; font-weight:800;letter-spacing:.5px;padding:5px 14px;border-radius:999px;font-size:.8rem;color:#031326}
+h1{font-size:1.7rem;margin:.4rem 0 .2rem;text-shadow:0 0 18px rgba(57,224,255,.35)}
+.sub{color:var(--dim);font-size:.98rem}
+#relogioBar{position:sticky;top:0;z-index:30;display:flex;gap:10px;align-items:center;justify-content:center;
+  flex-wrap:wrap;background:rgba(9,15,40,.92);border:1px solid var(--line);border-radius:14px;
+  padding:8px 12px;margin:12px 0;backdrop-filter:blur(6px);font-size:.9rem}
+#relogioBar b{color:var(--cyan)}
+.rlg-chip{background:#0c1a3c;border:1px solid var(--line);padding:4px 10px;border-radius:999px;color:var(--dim)}
+.rlg-chip.ativo{color:var(--green)}
+#gate{position:fixed;inset:0;z-index:60;background:rgba(4,7,20,.97);display:flex;
+  align-items:center;justify-content:center;padding:20px;text-align:center}
+#gate .card{max-width:460px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px 26px;box-shadow:var(--shadow)}
+#gate h2{margin:.2rem 0 .4rem;font-size:1.5rem}
+.bigbtn{cursor:pointer;border:none;border-radius:14px;padding:16px 26px;font-size:1.12rem;font-weight:800;
+  background:linear-gradient(90deg,var(--green),var(--cyan));color:#04121f;box-shadow:0 8px 22px rgba(57,224,255,.35);
+  transition:transform .1s}
+.bigbtn:active{transform:scale(.97)}
+#content.locked{filter:blur(7px);pointer-events:none;user-select:none}
+.block{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin:16px 0;box-shadow:var(--shadow)}
+.block.dim{opacity:.45}
+.block h3{margin:.1rem 0 .5rem;color:var(--cyan);font-size:1.2rem}
+.block .tag{display:inline-block;background:#0c1a3c;border:1px solid var(--line);color:var(--dim);
+  font-size:.72rem;padding:3px 9px;border-radius:999px;margin-bottom:8px}
+.txt p{margin:.5rem 0}
+.ex{background:#0a1530;border-left:4px solid var(--green);border-radius:8px;padding:8px 12px;margin:8px 0}
+.ex b{color:var(--green)}
+.en{color:var(--cyan)}
+.pt{color:var(--dim);font-style:italic}
+.q{margin:14px 0 4px;font-weight:600}
+.q small{display:block;font-weight:400;color:var(--dim);font-size:.82rem;margin-top:2px}
+textarea{width:100%;min-height:60px;background:#0a1330;border:1px solid var(--line);border-radius:10px;
+  color:var(--ink);padding:10px;font-family:inherit;font-size:.98rem;resize:vertical}
+textarea.warn{border-color:var(--amber);box-shadow:0 0 0 2px rgba(251,191,36,.25)}
+textarea.copied{border-color:var(--red);box-shadow:0 0 0 2px rgba(251,90,106,.3)}
+.aviso{font-size:.86rem;border-radius:10px;padding:9px 12px;margin:6px 0;display:none}
+.aviso.amber{background:rgba(251,191,36,.12);border:1px solid var(--amber);color:#ffe6a6;display:block}
+.aviso.red{background:rgba(251,90,106,.12);border:1px solid var(--red);color:#ffc9cf;display:block}
+.btn{cursor:pointer;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:.95rem;
+  background:linear-gradient(90deg,var(--cyan2),var(--cyan));color:#04121f;margin-top:10px}
+.btn:disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.5)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--dim)}
+.modelo{display:none;margin-top:12px;background:#0a1530;border:1px dashed var(--green2);border-radius:10px;padding:10px 12px}
+.modelo.show{display:block}
+.modelo h4{margin:.1rem 0 .3rem;color:var(--green);font-size:.95rem}
+.chk{margin:6px 0;font-size:.9rem}
+.chk .opts{display:inline-flex;gap:6px;margin-left:6px}
+.chk button{border:1px solid var(--line);background:#0c1a3c;color:var(--dim);border-radius:8px;padding:2px 10px;cursor:pointer;font-size:.82rem}
+.chk button.sim.on{background:var(--green2);color:#fff;border-color:var(--green2)}
+.chk button.nao.on{background:var(--red);color:#fff;border-color:var(--red)}
+.status{margin-top:8px;font-weight:700;font-size:.9rem}
+.status.ok{color:var(--green)} .status.rev{color:var(--amber)}
+.trap{background:rgba(251,90,106,.10);border:1px solid var(--red);border-radius:14px;padding:16px;margin:18px 0}
+.trap h3{color:var(--red)}
+.cover{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+th{background:#0c1a3c;color:var(--cyan)}
+.revlist{background:rgba(251,191,36,.08);border:1px solid var(--amber);border-radius:14px;padding:14px;margin:16px 0}
+.revlist h3{color:var(--amber)}
+.savebar{position:fixed;bottom:0;left:0;right:0;z-index:40;background:rgba(9,15,40,.95);border-top:1px solid var(--line);
+  padding:8px 10px;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:.82rem;backdrop-filter:blur(6px)}
+.savebar button{border:1px solid var(--line);background:#0c1a3c;color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer;font-size:.82rem}
+.savebar .st{color:var(--dim)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin:22px 0}
+.nav a{flex:1;text-align:center;text-decoration:none;background:var(--panel);border:1px solid var(--line);
+  color:var(--ink);border-radius:12px;padding:12px;font-weight:700}
+.nav a.next{background:linear-gradient(90deg,var(--green2),var(--cyan2));color:#04121f}
+.modal{position:fixed;inset:0;z-index:70;background:rgba(4,7,20,.85);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal .box{max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center}
+.modal .box h3{margin-top:0}
+.modal .row{display:flex;gap:10px;justify-content:center;margin-top:14px}
+@media(max-width:520px){h1{font-size:1.4rem}.wrap{padding:10px 10px 90px}}
+</style>
+</head>
+<body>
+<canvas class="stars" id="stars"></canvas>
+<div class="wrap">
+  <header class="top">
+    <span class="badge">🚀 ESTAÇÃO GET WELL · INGLÊS 7º</span>
+    <h1>📖 Leitura Guiada</h1>
+    <div class="sub">Units 1 & 2 · Colégio Legado · Prova 14/09 — Bem-vindo(a) à bordo, jovem aprendiz!</div>
+  </header>
+
+  <div id="relogioBar">
+    <span>⏱️ Tempo: <b id="rlgTotal">00:00</b></span>
+    <span class="rlg-chip" id="rlgAtivoChip">ativo <b id="rlgAtivo">00:00</b></span>
+    <span class="rlg-chip" id="rlgSessao">sessão 45 min</span>
+    <button class="btn ghost" style="padding:4px 10px;margin:0" onclick="RELOGIO.terminar()">⏹ Terminar agora</button>
+  </div>
+
+  <div id="content" class="locked">
+    <p class="sub" style="text-align:center;margin-top:0">
+      Leia cada bloco, responda as 3 perguntas com <b>suas palavras</b> e clique em <b>Conferir</b>.
+      O próximo bloco só abre depois. No fim há uma caixa de pegadinhas e um mapa do conteúdo. 🛰️
+    </p>
+    <div id="blocks"></div>
+
+    <div class="trap" id="trapBox">
+      <h3>⚠️ 10 Pegadinhas da prova</h3>
+      <ol id="trapList"></ol>
+    </div>
+
+    <div class="cover">
+      <h3 style="color:var(--cyan)">🗺️ Mapa do conteúdo (Tópico → Bloco)</h3>
+      <table><thead><tr><th>Tópico do escopo</th><th>Bloco</th></tr></thead>
+      <tbody id="coverBody"></tbody></table>
+    </div>
+
+    <div class="revlist" id="revBox" style="display:none">
+      <h3>🔁 Para revisar</h3>
+      <p class="sub">Estas respostas ficaram copiadas do texto ou com algum ponto do checklist marcado "Não". Vale reler e refazer com suas palavras.</p>
+      <ul id="revItems"></ul>
+    </div>
+
+    <div class="nav">
+      <a href="index.html">🏠 Início</a>
+      <a class="next" href="ingles_legado_quiz.html">🎯 Ir para o Quiz →</a>
+    </div>
+  </div>
+</div>
+
+<div id="gate"><div class="card">
+  <div style="font-size:2.4rem">⏱️🚀</div>
+  <h2>Pronto para embarcar?</h2>
+  <p class="sub">O estudo funciona melhor com foco. Ao tocar em <b>Começar</b>, ligo o relógio de estudo.
+  A sessão é de <b>45 minutos</b>; depois a estação pede uma pausa de 5 minutos para você respirar e beber água. 💧</p>
+  <button class="bigbtn" onclick="RELOGIO.iniciar()">🚀 Começar a estudar</button>
+</div></div>
+
+<div class="modal" id="breakModal"><div class="box">
+  <div style="font-size:2.2rem">🛰️☕</div>
+  <h3>Pausa obrigatória</h3>
+  <p class="sub">Você estudou 45 minutos! Levante, alongue, beba água.<br>A estação libera em <b id="breakLeft">05:00</b>.</p>
+  <p class="sub">Suas respostas estão salvas. ✔️</p>
+</div></div>
+
+<div class="modal" id="endModal"><div class="box">
+  <h3>Terminar agora?</h3>
+  <p class="sub">Suas respostas ficam salvas. Você pode voltar depois.</p>
+  <div class="row">
+    <button class="btn ghost" onclick="RELOGIO._closeEnd()">Continuar estudando</button>
+    <button class="btn" onclick="RELOGIO._doEnd()">Sim, terminar</button>
+  </div>
+</div></div>
+
+<div class="savebar">
+  <span class="st" id="saveSt">💾 salvo automaticamente</span>
+  <button onclick="SAVE.exportar()">📥 Exportar</button>
+  <button onclick="document.getElementById('impFile').click()">📤 Importar</button>
+  <input type="file" id="impFile" accept=".json" style="display:none" onchange="SAVE.importar(this)">
+  <button onclick="SAVE.zerar()">🗑️ Zerar tudo</button>
+</div>
+
+<script>
+var MEM={};
+var LS={
+  get:function(k){try{return localStorage.getItem(k)}catch(e){return MEM[k]||null}},
+  set:function(k,v){try{localStorage.setItem(k,v)}catch(e){MEM[k]=v}},
+  del:function(k){try{localStorage.removeItem(k)}catch(e){delete MEM[k]}}
+};
+var KEY='ing_legado_leitura';
+
+var BLOCOS=[
+{id:'b1',tag:'Unit 1 · Present Continuous',titulo:'Present Continuous — o que acontece AGORA',
+ texto:[
+  'O <b class="en">Present Continuous</b> (presente contínuo) mostra uma ação em andamento. A fórmula é sempre: <b>sujeito + am/is/are + verbo com -ing</b>. Ex.: <span class="en">I <b>am</b> studying</span>, <span class="en">she <b>is</b> reading</span>, <span class="en">they <b>are</b> playing</span>.',
+  'O primeiro uso é para <b>coisas acontecendo no momento da fala</b> (things happening at the moment of speaking). Costuma vir com <span class="en">Look!</span> ou <span class="en">Listen!</span>.',
+  '<div class="ex"><b>Look! Your brother <u>is calling</u> you.</b> <span class="pt">(Olha! Seu irmão está te chamando — agora.)</span></div>',
+  '<div class="ex"><b>Please don\'t make any noise. The kids <u>are sleeping</u>.</b> <span class="pt">(As crianças estão dormindo — neste momento.)</span></div>'
+ ],
+ perguntas:[
+  {q:'Escreva UMA frase sua no Present Continuous descrevendo algo que está acontecendo agora, à sua volta.',dica:'aplicação — invente sua frase, use am/is/are + verbo-ing',
+   modelo:'Ex.: "My mom is cooking dinner right now." / "The rain is falling outside."',
+   chk:['Usei am, is ou are + verbo terminado em -ing?','A frase mostra algo acontecendo AGORA?']},
+  {q:'Transforme para o Present Continuous: "He watches TV." → ?',dica:'aplicação — mude a estrutura',
+   modelo:'"He is watching TV." (is + watch + ing).',
+   chk:['Troquei para "is watching"?']},
+  {q:'Com suas palavras, para que serve este primeiro uso do Present Continuous?',dica:'conceitual',
+   modelo:'Serve para falar de ações que acontecem no exato momento da fala (agora).',
+   chk:['Falei em "momento da fala" ou "agora"?']}
+ ]},
+{id:'b2',tag:'Unit 1 · Present Continuous',titulo:'Situações temporárias ou que estão mudando',
+ texto:[
+  'O segundo uso é para <b>situações temporárias ou que estão mudando</b> (temporary or changing situations) — algo diferente do normal, que dura só um período.',
+  '<div class="ex"><b>I\'m sleeping in my baby sister\'s room these days.</b> <span class="pt">(Estou dormindo no quarto da minha irmãzinha — por enquanto.)</span></div>',
+  '<div class="ex"><b>The girls <u>are having</u> French classes instead of Spanish.</b> <span class="pt">(Situação nova, temporária.)</span></div>',
+  '<div class="ex"><b>I\'m helping Geoffrey with his studies this semester.</b> <span class="pt">(Só neste semestre.)</span></div>',
+  'Palavras que combinam com esse uso: <span class="en">these days, this week, this semester, this year, for a while, at the moment</span>.'
+ ],
+ perguntas:[
+  {q:'Escreva uma frase SUA sobre algo temporário que está diferente na sua vida agora (ex.: uma aula nova, um lugar onde está dormindo, um esporte novo).',dica:'aplicação',
+   modelo:'Ex.: "I\'m taking swimming lessons this month." / "We are living at my grandma\'s house for a while."',
+   chk:['Minha frase mostra algo TEMPORÁRIO (só por um tempo)?','Usei am/is/are + verbo-ing?']},
+  {q:'Explique, com suas palavras, a diferença entre "I sleep in my room" e "I\'m sleeping in my sister\'s room these days".',dica:'aplicação — compare',
+   modelo:'A 1ª é rotina permanente (Simple Present). A 2ª é temporária, só por enquanto (Present Continuous).',
+   chk:['Falei que a 2ª é temporária/por enquanto?','Falei que a 1ª é rotina/permanente?']},
+  {q:'Complete com sua própria ideia: "This week I am ______ because ______."',dica:'aplicação',
+   modelo:'Ex.: "This week I am studying a lot because I have an English test."',
+   chk:['Completei com verbo-ing?','A frase faz sentido como algo temporário desta semana?']}
+ ]},
+{id:'b3',tag:'Unit 2 · Present Continuous',titulo:'Planos combinados para o futuro (future arrangements)',
+ texto:[
+  'O terceiro uso é para <b>combinações/planos já marcados para o futuro</b> (future arrangements). A ação é no futuro, mas já foi combinada, por isso usamos o Present Continuous. Quase sempre aparece uma <b>expressão de tempo futura</b>.',
+  '<div class="ex"><b>Sophia <u>is seeing</u> the doctor again later today.</b> <span class="pt">(Consulta já marcada para hoje mais tarde.)</span></div>',
+  '<div class="ex"><b>Adam <u>is having</u> his wisdom teeth removed tomorrow morning.</b> <span class="pt">(Já agendado.)</span></div>',
+  '<div class="ex"><b>Noah\'s father <u>is taking</u> him to the hospital this afternoon.</b></div>',
+  'Marcadores comuns: <span class="en">later today, this afternoon, this evening, tomorrow morning, next week, in three months</span>.'
+ ],
+ perguntas:[
+  {q:'Escreva um plano SEU já combinado para o futuro, usando Present Continuous + expressão de tempo.',dica:'aplicação',
+   modelo:'Ex.: "I am visiting my cousins next weekend." / "We are traveling tomorrow morning."',
+   chk:['Usei am/is/are + verbo-ing?','Coloquei uma expressão de tempo futura (tomorrow, next week...)?']},
+  {q:'Como você sabe que "She is seeing the doctor later today" é um PLANO FUTURO e não algo de agora? Explique.',dica:'aplicação — justifique',
+   modelo:'Porque tem "later today" (mais tarde), uma expressão de tempo futura; então é uma combinação para depois.',
+   chk:['Apontei a expressão de tempo futura como pista?']},
+  {q:'Os três usos do Present Continuous são: agora, temporário e ____. Complete e dê um exemplo curto do que faltou.',dica:'conceitual + exemplo',
+   modelo:'Falta "planos futuros combinados". Ex.: "I am meeting my friend tonight."',
+   chk:['Falei em plano/arranjo futuro?','Dei um exemplo com expressão de tempo futura?']}
+ ]},
+{id:'b4',tag:'Unit 1 · Modais',titulo:'MUST e HAVE TO — obrigação e necessidade',
+ texto:[
+  'Para dizer que algo é <b>obrigatório / necessário</b> (agora ou num futuro próximo), usamos <b class="en">must</b> ou <b class="en">have to / has to</b>.',
+  '<div class="ex"><b>I <u>must</u> study with the tutor this afternoon.</b> <span class="pt">(preciso / é obrigatório)</span></div>',
+  '<div class="ex"><b>I <u>have to</u> get up early tomorrow.</b> <span class="pt">(tenho que)</span></div>',
+  'Depois de <span class="en">must</span> vem o verbo <b>sem "to"</b> (must study). Já <span class="en">have to</span> pede o "to" (have <b>to</b> study). Com he/she/it, vira <span class="en">has to</span>.',
+  'Numa lista de regras da escola, o <b>YOU MUST</b> é o que você é obrigado a fazer: <span class="en">You must arrive to class on time. You must wear the school uniform.</span>'
+ ],
+ perguntas:[
+  {q:'Escreva uma obrigação SUA de verdade usando "have to" ou "must".',dica:'aplicação',
+   modelo:'Ex.: "I have to do my homework after dinner." / "I must wake up early on school days."',
+   chk:['Usei must (sem to) OU have/has to (com to)?','É de fato uma obrigação/necessidade?']},
+  {q:'Corrija: "She have to study." O que está errado e como fica certo?',dica:'aplicação',
+   modelo:'Errado: com "she" é "has to". Certo: "She has to study."',
+   chk:['Troquei "have" por "has"?']},
+  {q:'Com suas palavras: qual a diferença de sentido entre "must" e "must not" (vamos ver a seguir)? Só diga o que "must" expressa.',dica:'conceitual',
+   modelo:'"must" expressa obrigação/necessidade (você PRECISA fazer).',
+   chk:['Falei que "must" = obrigação/necessidade?']}
+ ]},
+{id:'b5',tag:'Unit 1 · Modais',titulo:'MUST NOT (proibição) × DON\'T HAVE TO (não é preciso)',
+ texto:[
+  'Cuidado: estas duas parecem iguais, mas são o oposto uma da outra! 🚨',
+  '<b class="en">must not (mustn\'t)</b> = <b>proibição</b>. É PROIBIDO fazer.',
+  '<div class="ex"><b>You <u>must not</u> use your cell phone in class.</b> <span class="pt">(É proibido usar o celular.)</span></div>',
+  '<b class="en">don\'t / doesn\'t have to</b> = <b>falta de necessidade</b>. Você PODE, mas não é obrigado.',
+  '<div class="ex"><b>You <u>don\'t have to</u> do everything in a day.</b> <span class="pt">(Não precisa fazer tudo — mas pode.)</span></div>',
+  'Resumindo o quadro School Rules: <b>YOU MUST NOT</b> = proibido (take pets to school, use a cell phone); <b>YOU DON\'T HAVE TO</b> = não é preciso (bring your own food).'
+ ],
+ perguntas:[
+  {q:'Escreva uma regra da SUA escola ou casa com "must not" (algo proibido).',dica:'aplicação',
+   modelo:'Ex.: "You must not run in the hallways." / "I must not use my phone at dinner."',
+   chk:['A frase mostra algo PROIBIDO?','Usei "must not" (ou mustn\'t)?']},
+  {q:'Escreva uma frase com "don\'t have to" mostrando algo que NÃO é obrigatório (mas é permitido).',dica:'aplicação',
+   modelo:'Ex.: "You don\'t have to wear a uniform on Saturday." / "I don\'t have to wake up early on Sunday."',
+   chk:['Mostra que NÃO é obrigatório (mas pode)?','Usei "don\'t/doesn\'t have to"?']},
+  {q:'Pegadinha: "You don\'t have to shout" quer dizer que gritar é PROIBIDO? Explique.',dica:'aplicação — pegadinha',
+   modelo:'Não! Quer dizer que não é NECESSÁRIO gritar (não é preciso). Proibido seria "You must not shout".',
+   chk:['Falei que "don\'t have to" NÃO é proibição, é falta de necessidade?']}
+ ]},
+{id:'b6',tag:'Unit 1 · Vocabulário',titulo:'Expressões de tempo — momento exato × tempo impreciso',
+ texto:[
+  'A prova separa expressões de tempo em dois grupos.',
+  '<b>Momento exato (precise moment in time)</b> — hora certa/definida: <span class="en">right away</span> (agora mesmo), <span class="en">this instant</span> (neste instante), <span class="en">the day after tomorrow</span> (depois de amanhã), <span class="en">it\'s due tomorrow</span> (vence amanhã).',
+  '<b>Tempo impreciso (imprecise time)</b> — sem hora certa/frequência vaga: <span class="en">every other day</span> (dia sim, dia não), <span class="en">from time to time</span> (de vez em quando), <span class="en">school night</span> (noite de dia de aula), <span class="en">never</span> (nunca), <span class="en">in a hurry</span> (com pressa).',
+  'Outra palavra do capítulo: <span class="en">curfew</span> = toque de recolher (hora limite para chegar em casa).'
+ ],
+ perguntas:[
+  {q:'Classifique com suas palavras: "the day after tomorrow" é momento exato ou tempo impreciso? Por quê?',dica:'aplicação',
+   modelo:'Momento exato — aponta um dia certo (depois de amanhã).',
+   chk:['Disse "momento exato"?','Justifiquei que aponta um dia/hora definido?']},
+  {q:'Escreva uma frase SUA usando "from time to time".',dica:'aplicação',
+   modelo:'Ex.: "I visit my grandparents from time to time."',
+   chk:['Usei "from time to time" numa frase que faz sentido?']},
+  {q:'Dê um exemplo de expressão de "momento exato" e um de "tempo impreciso" (podem ser da lista).',dica:'aplicação',
+   modelo:'Exato: right away / this instant. Impreciso: every other day / from time to time.',
+   chk:['Dei um de cada grupo corretamente?']}
+ ]},
+{id:'b7',tag:'Unit 2 · Vocabulário',titulo:'Doenças e sintomas (illnesses and symptoms)',
+ texto:[
+  'Vocabulário de saúde que cai na prova: <span class="en">allergies</span> (alergias), <span class="en">asthma</span> (asma), <span class="en">chicken pox</span> (catapora), <span class="en">cramps</span> (cólicas), <span class="en">dizziness</span> (tontura), <span class="en">ear infection</span> (infecção de ouvido), <span class="en">insect bite</span> (picada de inseto), <span class="en">pinkeye</span> (conjuntivite), <span class="en">sore throat</span> (dor de garganta), <span class="en">sunburn</span> (queimadura de sol).',
+  'Do cruzadinha (crossword): <span class="en">headache</span> (dor de cabeça), <span class="en">toothache</span> (dor de dente), <span class="en">stomachache</span> (dor de barriga — quando come demais), <span class="en">medicine</span> (remédio), <span class="en">doctor</span> (médico), <span class="en">wisdom teeth</span> (dentes do siso), <span class="en">X-ray</span> (raio-X), <span class="en">E.R.</span> (emergency room = pronto-socorro), <span class="en">bedridden</span> (de cama, sem poder levantar).',
+  '💡 Repare no sufixo <b>-ache</b> = dor: head+ache, tooth+ache, stomach+ache.'
+ ],
+ perguntas:[
+  {q:'Escreva, em inglês, o que você diria se estivesse com dor de garganta e febre.',dica:'aplicação',
+   modelo:'Ex.: "I have a sore throat and a fever." / "I feel sick, I have a sore throat."',
+   chk:['Usei o vocabulário de saúde (sore throat, fever...)?','A frase está em inglês e faz sentido?']},
+  {q:'Complete a regra do sufixo: dor de cabeça = head + ____; dor de dente = tooth + ____.',dica:'aplicação',
+   modelo:'head + ache = headache; tooth + ache = toothache.',
+   chk:['Escrevi "ache" nos dois?']},
+  {q:'O que significa "E.R." e quando alguém vai para lá? Responda com suas palavras.',dica:'conceitual',
+   modelo:'E.R. = Emergency Room (pronto-socorro). Vai quem tem uma emergência/urgência de saúde.',
+   chk:['Disse que E.R. é pronto-socorro/emergência?']}
+ ]},
+{id:'b8',tag:'Unit 2 · Comunicação',titulo:'Frases de solidariedade e conselho (sympathy & advice)',
+ texto:[
+  'Quando um amigo está mal, usamos <b>frases de solidariedade</b> (sympathy) para mostrar que nos importamos, e <b>frases de conselho</b> (advice) para sugerir o que fazer.',
+  '<b>Solidariedade:</b> <span class="en">I\'m sorry to hear that.</span> · <span class="en">That\'s too bad.</span> · <span class="en">That\'s awful!</span> · <span class="en">I hope you feel better soon.</span>',
+  '<b>Conselho:</b> <span class="en">You should rest and drink plenty of water.</span> · <span class="en">You shouldn\'t go to bed with wet hair.</span> · <span class="en">Maybe you should...</span> · <span class="en">Why don\'t you...?</span>',
+  '<div class="ex"><b>— I fell down the stairs and now my arm really hurts.</b><br><b>— That\'s awful! You should go to the E.R.</b> <span class="pt">(That\'s awful = solidariedade; You should = conselho.)</span></div>',
+  '💡 <b>should</b> = deveria (conselho); <b>shouldn\'t</b> = não deveria. Depois de should vem o verbo sem "to".'
+ ],
+ perguntas:[
+  {q:'Um amigo diz: "I have a headache." Escreva uma resposta SUA com uma frase de solidariedade E um conselho.',dica:'aplicação',
+   modelo:'Ex.: "I\'m sorry to hear that. You should rest and take some medicine."',
+   chk:['Coloquei uma frase de solidariedade?','Coloquei um conselho com should/shouldn\'t ou "why don\'t you"?']},
+  {q:'Reescreva este conselho no negativo: "You should eat a lot of candy." → conselho do que NÃO fazer.',dica:'aplicação',
+   modelo:'"You shouldn\'t eat a lot of candy."',
+   chk:['Usei "shouldn\'t"?']},
+  {q:'Qual a diferença entre uma frase de solidariedade e uma de conselho? Explique com suas palavras.',dica:'conceitual',
+   modelo:'Solidariedade mostra que você sente pela pessoa (ex.: I\'m sorry to hear that). Conselho sugere o que ela deve fazer (ex.: You should rest).',
+   chk:['Expliquei que solidariedade = mostrar que se importa?','Expliquei que conselho = sugerir o que fazer?']}
+ ]},
+{id:'b9',tag:'Unit 2 · Gramática',titulo:'Verbos de sensação + adjetivos (look, smell, taste, sound, feel, seem)',
+ texto:[
+  'Os <b>verbos de sensação</b> ligam algo a um adjetivo, usando os 5 sentidos: <span class="en">look</span> (parecer/aparência — olhos), <span class="en">smell</span> (cheirar — nariz), <span class="en">taste</span> (ter gosto — boca), <span class="en">sound</span> (soar — ouvido), <span class="en">feel</span> (sentir ao tocar — tato), <span class="en">seem</span> (parecer, impressão geral).',
+  '<div class="ex"><b>It <u>smells</u> good. It <u>looks</u> soft.</b> <span class="pt">(cheira bem; parece macio)</span></div>',
+  '<div class="ex"><b>Her voice <u>sounds</u> hoarse.</b> · <b>They <u>seem</u> dangerous.</b></div>',
+  '🚨 O erro clássico da prova é <b>trocar o verbo pelo sentido errado</b>: "touch this blanket, which one <s>tastes</s> softer?" → o certo é <b>feels</b> softer (tato). "I prefer white chocolate because it <s>sounds</s> sweeter" → <b>tastes</b> sweeter (gosto).'
+ ],
+ perguntas:[
+  {q:'Escolha um objeto (uma fruta, um bicho, uma comida) e escreva 2 frases SUAS usando verbos de sensação diferentes.',dica:'aplicação',
+   modelo:'Ex.: "The lemon looks yellow and tastes sour." / "The cat feels soft and sounds happy."',
+   chk:['Usei pelo menos 2 verbos de sensação diferentes?','Cada verbo combina com o sentido certo (taste=gosto, feel=tato...)?']},
+  {q:'Corrija o verbo errado: "This soup looks delicious in my mouth." (sobre o SABOR)',dica:'aplicação',
+   modelo:'"This soup tastes delicious." (sabor = taste, não look).',
+   chk:['Troquei "looks" por "tastes"?']},
+  {q:'Ligue cada verbo ao sentido: smell → ? / feel → ? / sound → ?',dica:'aplicação',
+   modelo:'smell → nariz (cheiro); feel → tato (toque); sound → ouvido (som).',
+   chk:['Acertei os três sentidos?']}
+ ]},
+{id:'b10',tag:'Unit 2 · Gramática',titulo:'SO — resultado e consequência',
+ texto:[
+  'A palavrinha <b class="en">so</b> liga duas frases mostrando <b>resultado / consequência</b>: primeiro a causa, depois o "so" + o resultado.',
+  '<div class="ex"><b>Ted\'s mother is a doctor, <u>so</u> she gave him some medication.</b> <span class="pt">(causa → so → resultado)</span></div>',
+  '<div class="ex"><b>He failed the exam, <u>so</u> he didn\'t get the certificate.</b></div>',
+  'Expressões com o MESMO sentido de "so": <span class="en">as a consequence</span> (como consequência), <span class="en">as a result</span> (como resultado), <span class="en">and that\'s why</span> (e é por isso que).',
+  '🚨 Não confunda: <b>so</b> = resultado (vem DEPOIS da causa). "because / why / for that reason" = causa (respondem "por quê?"). Ex.: "She gave medication <b>because</b> she is a doctor" (causa) × "She is a doctor, <b>so</b> she gave medication" (resultado).'
+ ],
+ perguntas:[
+  {q:'Escreva uma frase SUA com "so" ligando uma causa a um resultado.',dica:'aplicação',
+   modelo:'Ex.: "It was raining, so I took my umbrella." / "I was tired, so I went to bed early."',
+   chk:['A parte antes do "so" é a causa e a de depois é o resultado?','Usei "so" no meio?']},
+  {q:'Troque o "so" por uma expressão de mesmo sentido: "I was sick, so I stayed home." → use "as a result".',dica:'aplicação',
+   modelo:'"I was sick. As a result, I stayed home."',
+   chk:['Usei "as a result" mantendo o mesmo sentido?']},
+  {q:'"so" mostra causa ou consequência? E onde ele fica na frase? Explique.',dica:'conceitual',
+   modelo:'Mostra a consequência/resultado, e fica DEPOIS da causa (no meio das duas frases).',
+   chk:['Disse que "so" mostra consequência/resultado?','Disse que vem depois da causa?']}
+ ]}
+];
+
+var PEGADINHAS=[
+ 'Present Continuous SEMPRE tem o verbo "be" (am/is/are) + verbo-ing. Esquecer o "be" é erro (ela <s>studying</s> → she <b>is</b> studying).',
+ '"must not" = PROIBIDO. "don\'t have to" = NÃO é preciso (mas pode). São opostos!',
+ 'Depois de must e should, o verbo vem SEM "to" (must study, should rest). Depois de have, vem COM "to" (have to study).',
+ 'Com he/she/it: "has to", não "have to".',
+ 'Future arrangement usa Present Continuous + expressão de tempo futura (tomorrow, next week...). Sem a expressão, pode parecer "agora".',
+ 'Verbos de sensação: cada um combina com UM sentido. taste = gosto, feel = tato, sound = ouvido, smell = cheiro, look = aparência.',
+ '"so" mostra o RESULTADO e vem depois da causa. "because" mostra a CAUSA.',
+ 'Sufixo -ache = dor: headache, toothache, stomachache.',
+ 'E.R. = Emergency Room (pronto-socorro), não é o consultório comum.',
+ 'Solidariedade (I\'m sorry to hear that) ≠ conselho (You should...). A prova pede para separar os dois.'
+];
+
+var COBERTURA=[
+ ['Present Continuous — momento da fala','Bloco 1'],
+ ['Present Continuous — situações temporárias','Bloco 2'],
+ ['Present Continuous — planos futuros (arrangements)','Bloco 3'],
+ ['Must / Have to — obrigação e necessidade','Bloco 4'],
+ ['Must not / Don\'t have to — proibição × falta de necessidade','Bloco 5'],
+ ['Expressões de tempo (exato × impreciso)','Bloco 6'],
+ ['Doenças e sintomas','Bloco 7'],
+ ['Frases de solidariedade e conselho','Bloco 8'],
+ ['Verbos de sensação + adjetivos','Bloco 9'],
+ ['SO — resultado e consequência','Bloco 10']
+];
+
+function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
+function words(s){return norm(s).split(' ').filter(Boolean);}
+function longestCommonRun(aWords,bSet){
+  var bText=' '+bSet.join(' ')+' ';var best=0;
+  for(var i=0;i<aWords.length;i++){
+    for(var j=aWords.length;j>i;j--){
+      var seg=aWords.slice(i,j);
+      if(seg.length<=best)break;
+      if(bText.indexOf(' '+seg.join(' ')+' ')>=0){if(seg.length>best)best=seg.length;break;}
+    }
+  }
+  return best;
+}
+function coveredFraction(aWords,bWords,minRun){
+  var bText=' '+bWords.join(' ')+' ';var covered=new Array(aWords.length).fill(false);
+  for(var i=0;i<aWords.length;i++){
+    for(var j=aWords.length;j>i+minRun-1;j--){
+      var seg=aWords.slice(i,j);
+      if(bText.indexOf(' '+seg.join(' ')+' ')>=0){for(var k=i;k<j;k++)covered[k]=true;break;}
+    }
+  }
+  var c=covered.filter(Boolean).length;return aWords.length?c/aWords.length:0;
+}
+function isTranscricao(resp,blocoTexto,perguntaTexto){
+  var a=words(resp);
+  if(a.length<6)return false;
+  var b=words(blocoTexto);
+  var qw=words(perguntaTexto);
+  var qText=' '+qw.join(' ')+' ';var keep=[];
+  for(var i=0;i<a.length;){
+    var matched=0;
+    for(var j=a.length;j>i+3;j--){var seg=a.slice(i,j);if(qText.indexOf(' '+seg.join(' ')+' ')>=0){matched=seg.length;break;}}
+    if(matched){i+=matched;}else{keep.push(a[i]);i++;}
+  }
+  var run=longestCommonRun(keep,b);
+  if(run>=8)return true;
+  var frac=coveredFraction(keep,b,5);
+  if(frac>0.60)return true;
+  return false;
+}
+
+var STATE={};
+function loadState(){try{var s=LS.get(KEY);STATE=s?JSON.parse(s):{}}catch(e){STATE={}}}
+function saveState(){LS.set(KEY,JSON.stringify(STATE));flashSaved();}
+var savT;
+function flashSaved(){var el=document.getElementById('saveSt');el.textContent='💾 salvo '+new Date().toLocaleTimeString('pt-BR').slice(0,5);clearTimeout(savT);savT=setTimeout(function(){el.textContent='💾 salvo automaticamente'},2500);}
+
+function qKey(bi,qi){return BLOCOS[bi].id+'_q'+qi;}
+function render(){
+  var host=document.getElementById('blocks');host.innerHTML='';
+  BLOCOS.forEach(function(bl,bi){
+    var div=document.createElement('div');div.className='block';div.id='blk_'+bl.id;
+    var open = bi===0 || isBlockDone(bi-1);
+    if(!open)div.classList.add('dim');
+    var h='<span class="tag">'+bl.tag+'</span><h3>Bloco '+(bi+1)+' · '+bl.titulo+'</h3>';
+    h+='<div class="txt">'+bl.texto.map(function(p){return '<p>'+p+'</p>'}).join('')+'</div>';
+    if(open){
+      bl.perguntas.forEach(function(pg,qi){
+        var st=STATE[qKey(bi,qi)]||{};
+        h+='<div class="q">'+(qi+1)+'. '+pg.q+'<small>✍️ '+pg.dica+'</small></div>';
+        h+='<textarea id="ta_'+bi+'_'+qi+'" oninput="onType('+bi+','+qi+')" placeholder="Escreva com suas palavras...">'+(st.resp?escapeHtml(st.resp):'')+'</textarea>';
+        h+='<div class="aviso" id="av_'+bi+'_'+qi+'"></div>';
+        h+='<div class="modelo" id="md_'+bi+'_'+qi+'"><h4>✅ Resposta modelo</h4><p>'+pg.modelo+'</p>'+
+           '<div id="chk_'+bi+'_'+qi+'"></div></div>';
+      });
+      h+='<button class="btn" id="conf_'+bi+'" onclick="conferir('+bi+')">Conferir bloco '+(bi+1)+'</button>';
+      h+='<div class="status" id="stt_'+bi+'"></div>';
+    }else{
+      h+='<p class="sub">🔒 Este bloco abre quando você conferir o bloco anterior.</p>';
+    }
+    div.innerHTML=h;host.appendChild(div);
+    if(open)bl.perguntas.forEach(function(pg,qi){var st=STATE[qKey(bi,qi)];if(st&&st.feito)showModelo(bi,qi);});
+  });
+  renderTraps();renderCover();renderRev();
+}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function renderTraps(){document.getElementById('trapList').innerHTML=PEGADINHAS.map(function(t){return '<li>'+t+'</li>'}).join('');}
+function renderCover(){document.getElementById('coverBody').innerHTML=COBERTURA.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'}).join('');}
+function isBlockDone(bi){for(var qi=0;qi<BLOCOS[bi].perguntas.length;qi++){var st=STATE[qKey(bi,qi)];if(!st||!st.feito)return false;}return true;}
+
+function onType(bi,qi){
+  RELOGIO.marcaAtividade();
+  var ta=document.getElementById('ta_'+bi+'_'+qi);
+  var st=STATE[qKey(bi,qi)]||{};st.resp=ta.value;
+  if(st.transcrita && st.tentou && norm(ta.value)!==norm(st.tentou) && !isTranscricao(ta.value,BLOCOS[bi].texto.join(' '),BLOCOS[bi].perguntas[qi].q)){
+    st.transcrita=false;ta.classList.remove('copied');
+    var av=document.getElementById('av_'+bi+'_'+qi);av.className='aviso';av.textContent='';
+  }
+  STATE[qKey(bi,qi)]=st;saveState();renderRev();
+}
+function conferir(bi){
+  RELOGIO.marcaAtividade();
+  var bl=BLOCOS[bi];var todasPreenchidas=true;var algumTravado=false;
+  for(var qi=0;qi<bl.perguntas.length;qi++){
+    var ta=document.getElementById('ta_'+bi+'_'+qi);
+    if(ta.value.trim().length<3){todasPreenchidas=false;}
+  }
+  if(!todasPreenchidas){
+    var stt=document.getElementById('stt_'+bi);stt.className='status rev';stt.textContent='✍️ Responda as 3 perguntas (mínimo 3 letras cada) para conferir.';
+    return;
+  }
+  for(var qi=0;qi<bl.perguntas.length;qi++){
+    var ta=document.getElementById('ta_'+bi+'_'+qi);var av=document.getElementById('av_'+bi+'_'+qi);
+    var st=STATE[qKey(bi,qi)]||{};st.resp=ta.value;
+    var copiou=isTranscricao(ta.value,bl.texto.join(' '),bl.perguntas[qi].q);
+    if(copiou){
+      if(!st.tentou){
+        st.tentou=ta.value; ta.classList.add('warn');
+        av.className='aviso amber';
+        av.innerHTML='📝 Boa parte da sua resposta está igual ao texto. Tente reescrever com <b>suas palavras</b> — explique como se fosse para um amigo, sem olhar o texto. Pode ficar mais curto e simples, o que vale é ser SEU.';
+        algumTravado=true;
+        STATE[qKey(bi,qi)]=st;continue;
+      }else{
+        st.transcrita=true; ta.classList.remove('warn');ta.classList.add('copied');
+        av.className='aviso red';
+        av.innerHTML='🔴 Resposta ainda parecida com o texto. Tudo bem seguir — mas ela ficou marcada para revisar. Se reescrever com suas palavras depois, a marca some.';
+      }
+    }
+    STATE[qKey(bi,qi)]=st;
+  }
+  if(algumTravado){saveState();var stt=document.getElementById('stt_'+bi);stt.className='status rev';stt.textContent='✏️ Ajuste as respostas em amarelo e clique em Conferir de novo.';return;}
+  for(var qi=0;qi<bl.perguntas.length;qi++){
+    var st=STATE[qKey(bi,qi)]||{};st.feito=true;st.quando=new Date().toISOString();STATE[qKey(bi,qi)]=st;
+    showModelo(bi,qi);
+  }
+  saveState();updateBlockStatus(bi);render();
+  setTimeout(function(){var nb=document.getElementById('blk_'+(BLOCOS[bi+1]?BLOCOS[bi+1].id:bl.id));if(nb)nb.scrollIntoView({behavior:'smooth',block:'start'});},120);
+}
+function showModelo(bi,qi){
+  var md=document.getElementById('md_'+bi+'_'+qi);if(!md)return;md.classList.add('show');
+  var pg=BLOCOS[bi].perguntas[qi];var st=STATE[qKey(bi,qi)]||{};st.chk=st.chk||{};
+  var host=document.getElementById('chk_'+bi+'_'+qi);
+  host.innerHTML='<p style="margin:.4rem 0 .2rem;color:var(--dim);font-size:.85rem">Confira sua resposta:</p>'+
+   pg.chk.map(function(c,ci){
+     var v=st.chk[ci];
+     return '<div class="chk">• '+c+'<span class="opts">'+
+       '<button class="sim'+(v==='sim'?' on':'')+'" onclick="setChk('+bi+','+qi+','+ci+',\'sim\')">Sim</button>'+
+       '<button class="nao'+(v==='nao'?' on':'')+'" onclick="setChk('+bi+','+qi+','+ci+',\'nao\')">Não</button>'+
+       '</span></div>';
+   }).join('');
+  STATE[qKey(bi,qi)]=st;
+}
+function setChk(bi,qi,ci,v){
+  var st=STATE[qKey(bi,qi)]||{};st.chk=st.chk||{};st.chk[ci]=v;STATE[qKey(bi,qi)]=st;saveState();
+  showModelo(bi,qi);updateBlockStatus(bi);renderRev();
+}
+function updateBlockStatus(bi){
+  var stt=document.getElementById('stt_'+bi);if(!stt)return;
+  var revisar=false;
+  for(var qi=0;qi<BLOCOS[bi].perguntas.length;qi++){
+    var st=STATE[qKey(bi,qi)]||{};
+    if(st.transcrita)revisar=true;
+    var pg=BLOCOS[bi].perguntas[qi];st.chk=st.chk||{};
+    for(var ci=0;ci<pg.chk.length;ci++){if(st.chk[ci]==='nao')revisar=true;}
+  }
+  if(revisar){stt.className='status rev';stt.textContent='🔁 Bloco concluído — alguns pontos para revisar (veja a lista no fim).';}
+  else{stt.className='status ok';stt.textContent='✅ Bloco concluído com sucesso! Pode seguir.';}
+}
+function renderRev(){
+  var items=[];
+  BLOCOS.forEach(function(bl,bi){
+    bl.perguntas.forEach(function(pg,qi){
+      var st=STATE[qKey(bi,qi)];if(!st)return;
+      var motivo=[];
+      if(st.transcrita)motivo.push('resposta copiada do texto');
+      st.chk=st.chk||{};for(var ci=0;ci<pg.chk.length;ci++){if(st.chk[ci]==='nao')motivo.push('checklist: "'+pg.chk[ci]+'" = Não');}
+      if(motivo.length)items.push('Bloco '+(bi+1)+', pergunta '+(qi+1)+' — '+motivo.join('; '));
+    });
+  });
+  var box=document.getElementById('revBox');var ul=document.getElementById('revItems');
+  if(items.length){box.style.display='block';ul.innerHTML=items.map(function(t){return '<li>'+t+'</li>'}).join('');}
+  else{box.style.display='none';ul.innerHTML='';}
+}
+
+var RELOGIO=(function(){
+  var TKEY=KEY+'_tempo';
+  var SESSAO=45*60, PAUSA=5*60, INAT=3*60;
+  var total=0, ativo=0, running=false, lastAct=Date.now(), tickH=null;
+  var sessAcc=0;
+  var breakLeft=0, breaking=false, breakH=null;
+  var sessoes=[];
+  function load(){try{var d=JSON.parse(LS.get(TKEY)||'{}');total=d.total||0;ativo=d.ativo||0;sessoes=d.sessoes||[];}catch(e){}}
+  function persist(){LS.set(TKEY,JSON.stringify({total:total,ativo:ativo,sessoes:sessoes}));}
+  function fmt(s){s=Math.max(0,Math.floor(s));var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+  function paint(){document.getElementById('rlgTotal').textContent=fmt(total);document.getElementById('rlgAtivo').textContent=fmt(ativo);
+    var chip=document.getElementById('rlgAtivoChip');chip.classList.toggle('ativo',running&&(Date.now()-lastAct)<INAT*1000);}
+  function tick(){
+    if(!running)return;
+    total++;
+    var idle=(Date.now()-lastAct)/1000;
+    if(idle<INAT){ativo++;sessAcc++;}
+    if(sessAcc>=SESSAO){startBreak();}
+    persist();paint();
+  }
+  function startBreak(){
+    running=false;breaking=true;breakLeft=PAUSA;sessAcc=0;
+    var m=document.getElementById('breakModal');m.classList.add('show');
+    document.getElementById('breakLeft').textContent=fmt(breakLeft);
+    breakH=setInterval(function(){breakLeft--;document.getElementById('breakLeft').textContent=fmt(breakLeft);
+      if(breakLeft<=0){clearInterval(breakH);m.classList.remove('show');breaking=false;running=true;lastAct=Date.now();}
+    },1000);
+  }
+  return {
+    iniciar:function(){
+      load();document.getElementById('gate').style.display='none';
+      document.getElementById('content').classList.remove('locked');
+      running=true;lastAct=Date.now();sessAcc=0;sessoes.push({ini:new Date().toISOString()});
+      if(!tickH)tickH=setInterval(tick,1000);paint();
+    },
+    marcaAtividade:function(){lastAct=Date.now();if(!running&&!breaking){running=true;}},
+    terminar:function(){document.getElementById('endModal').classList.add('show');},
+    _closeEnd:function(){document.getElementById('endModal').classList.remove('show');},
+    _doEnd:function(){running=false;if(sessoes.length)sessoes[sessoes.length-1].fim=new Date().toISOString();persist();
+      document.getElementById('endModal').classList.remove('show');
+      var m=document.getElementById('breakModal');m.querySelector('h3').textContent='Estudo encerrado 👋';
+      m.querySelector('.box').innerHTML='<div style="font-size:2.2rem">✔️</div><h3>Estudo salvo!</h3><p class="sub">Tempo total: '+fmt(total)+' · ativo: '+fmt(ativo)+'.<br>Você pode fechar ou continuar quando quiser.</p><button class="btn" onclick="document.getElementById(\'breakModal\').classList.remove(\'show\')">Ok</button>';
+      m.classList.add('show');},
+    dados:function(){return {total:total,ativo:ativo,sessoes:sessoes};},
+    _debug:function(o){if(o&&o.restante!=null){sessAcc=SESSAO-o.restante;}return {total:total,ativo:ativo,sessAcc:sessAcc};}
+  };
+})();
+['click','keydown','scroll','input'].forEach(function(ev){document.addEventListener(ev,function(){RELOGIO.marcaAtividade();},{passive:true});});
+
+var SAVE={
+  exportar:function(){
+    var data={material:'leitura_guiada',key:KEY,quando:new Date().toISOString(),respostas:STATE,tempo:RELOGIO.dados()};
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='leitura_guiada_ingles_7ano.json';a.click();
+  },
+  importar:function(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();
+    r.onload=function(){try{var d=JSON.parse(r.result);if(d.respostas){STATE=d.respostas;saveState();}
+      if(d.tempo){LS.set(KEY+'_tempo',JSON.stringify(d.tempo));}
+      render();alertBox('Progresso importado! ✔️');}catch(e){alertBox('Arquivo inválido.');}};r.readAsText(f);},
+  zerar:function(){confirmBox('Apagar TODO o progresso e o tempo de estudo?',function(){STATE={};LS.del(KEY);LS.del(KEY+'_tempo');location.reload();});}
+};
+function alertBox(msg){var m=document.getElementById('endModal');m.querySelector('.box').innerHTML='<p>'+msg+'</p><div class="row"><button class="btn" onclick="document.getElementById(\'endModal\').classList.remove(\'show\')">Ok</button></div>';m.classList.add('show');}
+function confirmBox(msg,cb){var m=document.getElementById('endModal');m.querySelector('.box').innerHTML='<h3>'+msg+'</h3><div class="row"><button class="btn ghost" onclick="document.getElementById(\'endModal\').classList.remove(\'show\')">Cancelar</button><button class="btn" id="cfok">Sim</button></div>';m.classList.add('show');document.getElementById('cfok').onclick=function(){m.classList.remove('show');cb();};}
+
+(function(){var c=document.getElementById('stars');var x=c.getContext('2d');function rs(){c.width=innerWidth;c.height=innerHeight;}rs();addEventListener('resize',rs);
+  var st=[];for(var i=0;i<90;i++)st.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.4,a:Math.random()});
+  (function d(){x.clearRect(0,0,c.width,c.height);st.forEach(function(s){s.a+=(Math.random()-.5)*.05;if(s.a<0)s.a=0;if(s.a>1)s.a=1;x.fillStyle='rgba(180,220,255,'+s.a+')';x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fill();});requestAnimationFrame(d);})();})();
+
+loadState();render();
+</script>
+</body>
+</html>
